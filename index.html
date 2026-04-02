@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UHV Cell | HKBK College of Engineering</title>
+  <meta name="description" content="Universal Human Values Cell at HKBK College of Engineering, Bangalore — AICTE Potential Nodal Center since 2021."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+  <style>
+    /* ─── HERO ─── */
+    .hero {
+      margin-top: 72px;
+      min-height: calc(100vh - 72px);
+      background: linear-gradient(135deg, #0a2158 0%, #1a3b8a 55%, #0d47a1 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-shapes span {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      animation: floatShape 8s ease-in-out infinite;
+    }
+    .hero-bg-shapes span:nth-child(1) { width:300px;height:300px;top:-80px;right:-60px;animation-delay:0s; }
+    .hero-bg-shapes span:nth-child(2) { width:200px;height:200px;bottom:60px;left:-60px;animation-delay:2s; }
+    .hero-bg-shapes span:nth-child(3) { width:150px;height:150px;top:50%;right:10%;animation-delay:4s; }
+    .hero-bg-shapes span:nth-child(4) { width:80px;height:80px;bottom:20%;left:15%;animation-delay:1s; }
+    @keyframes floatShape { 0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)} }
+
+    .hero-content {
+      max-width: 900px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(230,126,34,0.15);
+      border: 1px solid rgba(230,126,34,0.35);
+      color: #f39c12;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 30px;
+      margin-bottom: 28px;
+      animation: fadeDown 0.8s ease forwards;
+    }
+    .hero-tag .pulse {
+      width: 8px; height: 8px;
+      background: #f39c12;
+      border-radius: 50%;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:0.6} }
+    @keyframes fadeDown { from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)} }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      animation: fadeUp 0.9s ease 0.2s both;
+    }
+    .hero h1 .gradient-text {
+      background: linear-gradient(90deg, #f39c12, #e67e22, #f1c40f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: rgba(255,255,255,0.82);
+      max-width: 660px;
+      margin: 0 auto 36px;
+      animation: fadeUp 0.9s ease 0.4s both;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp 0.9s ease 0.6s both;
+    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)} }
+
+    .hero-badges {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 56px;
+      animation: fadeUp 0.9s ease 0.8s both;
+    }
+    .hero-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 12px 20px;
+      color: rgba(255,255,255,0.9);
+      font-size: 13px;
+      backdrop-filter: blur(6px);
+    }
+    .hero-badge i { color: #f39c12; font-size: 20px; }
+    .hero-badge strong { display: block; font-size: 16px; color: #fff; }
+
+    /* ─── ABOUT UHV ─── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+    .about-visual {
+      background: linear-gradient(135deg, #0a2158, #1a3b8a);
+      border-radius: 20px;
+      padding: 48px 40px;
+      color: #fff;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-visual::before {
+      content:'';
+      position:absolute;top:-40px;right:-40px;
+      width:160px;height:160px;
+      border-radius:50%;
+      background:rgba(230,126,34,0.12);
+    }
+    .about-visual .big-icon {
+      font-size: 72px;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .about-visual h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 12px; }
+    .about-visual p { font-size: 14px; opacity: 0.85; line-height: 1.8; }
+    .about-points { list-style: none; margin-top: 20px; }
+    .about-points li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 12px;
+    }
+    .about-points li i { color: #f39c12; margin-top: 3px; }
+
+    .about-text h2 { font-size: 1.9rem; font-weight: 800; color: #0a2158; margin-bottom: 16px; line-height: 1.2; }
+    .about-text h2 span { color: #e67e22; }
+    .about-text p { font-size: 15px; color: #6c757d; line-height: 1.8; margin-bottom: 16px; }
+    .value-chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0; }
+    .chip {
+      background: #f4f6fb;
+      border: 1px solid #dee2e6;
+      color: #0a2158;
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .chip i { color: #e67e22; }
+
+    /* ─── WHY UHV ─── */
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+    .why-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 24px;
+      box-shadow: 0 4px 20px rgba(10,33,88,0.08);
+      border-bottom: 4px solid #e67e22;
+      transition: all 0.3s;
+    }
+    .why-card:nth-child(2) { border-bottom-color: #27ae60; }
+    .why-card:nth-child(3) { border-bottom-color: #9b59b6; }
+    .why-card:nth-child(4) { border-bottom-color: #2980b9; }
+    .why-card:hover { transform: translateY(-6px); box-shadow: 0 8px 32px rgba(10,33,88,0.14); }
+    .why-icon { font-size: 36px; margin-bottom: 16px; }
+    .why-card h4 { font-size: 1rem; font-weight: 700; color: #0a2158; margin-bottom: 8px; }
+    .why-card p { font-size: 13.5px; color: #6c757d; line-height: 1.7; }
+
+    @media(max-width:900px){
+      .about-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ NAVBAR ═══════════════════════════ -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <div class="logo-icon">🕊️</div>
+      <div class="brand-text">
+        <div class="brand-title">UHV CELL — HKBKCE</div>
+        <div class="brand-sub">Universal Human Values</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+      <li><a href="activities.html"><i class="fas fa-calendar-check"></i> Activities</a></li>
+      <li><a href="team.html"><i class="fas fa-users"></i> Team</a></li>
+      <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg-shapes"><span></span><span></span><span></span><span></span></div>
+  <div class="hero-content">
+    <div class="hero-tag">
+      <span class="pulse"></span>
+      AICTE Potential Nodal Center — Recognized 2021
+    </div>
+    <h1>
+      Universal Human Values Cell<br/>
+      <span class="gradient-text">HKBK College of Engineering</span>
+    </h1>
+    <p>
+      Fostering values-based education to build ethical engineers and compassionate human beings.
+      Nurturing harmony within — with family, society, and nature.
+    </p>
+    <div class="hero-cta">
+      <a href="activities.html" class="btn btn-primary">
+        <i class="fas fa-calendar-check"></i> View Activities
+      </a>
+      <a href="about.html" class="btn btn-white">
+        <i class="fas fa-info-circle"></i> Learn More
+      </a>
+    </div>
+    <div class="hero-badges">
+      <div class="hero-badge">
+        <i class="fas fa-building-columns"></i>
+        <div><strong>2021</strong>Cell Established</div>
+      </div>
+      <div class="hero-badge">
+        <i class="fas fa-award"></i>
+        <div><strong>AICTE</strong>Potential Nodal Center</div>
+      </div>
+      <div class="hero-badge">
+        <i class="fas fa-users"></i>
+        <div><strong>20+</strong>Events Conducted</div>
+      </div>
+      <div class="hero-badge">
+        <i class="fas fa-graduation-cap"></i>
+        <div><strong>2000+</strong>Students Impacted</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ STATS ═══════════════════════════ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card" data-aos="fade-up" data-delay="0">
+        <div class="stat-icon"><i class="fas fa-calendar"></i></div>
+        <div class="stat-number"><span class="count-up" data-target="2021">0</span></div>
+        <div class="stat-label">Year Cell Established</div>
+      </div>
+      <div class="stat-card" data-aos="fade-up" data-delay="100">
+        <div class="stat-icon"><i class="fas fa-certificate"></i></div>
+        <div class="stat-number"><span class="count-up" data-target="20">0</span>+</div>
+        <div class="stat-label">Events & Activities</div>
+      </div>
+      <div class="stat-card" data-aos="fade-up" data-delay="200">
+        <div class="stat-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+        <div class="stat-number"><span class="count-up" data-target="10">0</span>+</div>
+        <div class="stat-label">Faculty FDP Participants</div>
+      </div>
+      <div class="stat-card" data-aos="fade-up" data-delay="300">
+        <div class="stat-icon"><i class="fas fa-users"></i></div>
+        <div class="stat-number"><span class="count-up" data-target="2000">0</span>+</div>
+        <div class="stat-label">Students Impacted</div>
+      </div>
+      <div class="stat-card" data-aos="fade-up" data-delay="400">
+        <div class="stat-icon"><i class="fas fa-hand-holding-heart"></i></div>
+        <div class="stat-number"><span class="count-up" data-target="5">0</span></div>
+        <div class="stat-label">Outreach Programs</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ ABOUT UHV ═══════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="about-grid">
+      <div data-aos="fade-right">
+        <div class="about-visual">
+          <span class="big-icon">🕊️</span>
+          <h3>Universal Human Values</h3>
+          <p>A vision for holistic education that goes beyond technical knowledge — cultivating ethical awareness, harmony, and responsible citizenship.</p>
+          <ul class="about-points">
+            <li><i class="fas fa-check-circle"></i> Right Understanding (Sahi Samajh)</li>
+            <li><i class="fas fa-check-circle"></i> Relationship &amp; Values in Human Conduct</li>
+            <li><i class="fas fa-check-circle"></i> Co-existence in Nature &amp; Society</li>
+            <li><i class="fas fa-check-circle"></i> Professional &amp; Human Excellence</li>
+          </ul>
+        </div>
+      </div>
+      <div data-aos="fade-left">
+        <div class="about-text">
+          <h2>Nurturing Values at <span>HKBK College of Engineering</span></h2>
+          <p>
+            The Universal Human Values (UHV) Cell at HKBK College of Engineering was established in <strong>2021</strong>
+            as part of the AICTE mandate to infuse value-based education in technical institutions.
+            We have been recognized as an <strong>AICTE Potential Nodal Center</strong> for Universal Human Values.
+          </p>
+          <p>
+            Our mission is to help students develop a comprehensive worldview — understanding
+            themselves, their relationships, and their responsibilities toward society, nature, and existence.
+          </p>
+          <div class="value-chips">
+            <span class="chip"><i class="fas fa-heart"></i> Compassion</span>
+            <span class="chip"><i class="fas fa-balance-scale"></i> Justice</span>
+            <span class="chip"><i class="fas fa-seedling"></i> Harmony</span>
+            <span class="chip"><i class="fas fa-handshake"></i> Trust</span>
+            <span class="chip"><i class="fas fa-star"></i> Excellence</span>
+            <span class="chip"><i class="fas fa-leaf"></i> Sustainability</span>
+          </div>
+          <a href="about.html" class="btn btn-outline">
+            <i class="fas fa-arrow-right"></i> Know More About UHV
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ RECOGNITION ═══════════════════════════ -->
+<div class="recognition-banner">
+  <div class="recognition-inner">
+    <div class="recognition-badge" data-aos="zoom-in">
+      <span class="badge-icon">🏆</span>
+      AICTE Recognition
+    </div>
+    <h2 class="recognition-title" data-aos="fade-up">
+      Recognized as <span class="highlight">AICTE Potential Nodal Center</span><br/>
+      for Universal Human Values
+    </h2>
+    <p class="recognition-desc" data-aos="fade-up" data-delay="100">
+      HKBK College of Engineering is proud to be recognized by the All India Council for Technical Education (AICTE)
+      as a Potential Nodal Center for Universal Human Values — a testament to our commitment to holistic education.
+    </p>
+    <div class="recognition-pills" data-aos="fade-up" data-delay="200">
+      <span class="pill"><i class="fas fa-check"></i> AICTE Approved Institution</span>
+      <span class="pill"><i class="fas fa-star"></i> Potential Nodal Center</span>
+      <span class="pill"><i class="fas fa-globe"></i> National Level FDPs Conducted</span>
+      <span class="pill"><i class="fas fa-users"></i> VTU UHV Monthly Lectures</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ WHY UHV ═══════════════════════════ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-tag"><i class="fas fa-lightbulb"></i> Our Purpose</span>
+      <h2 class="section-title">Why Universal Human Values?</h2>
+      <div class="divider"></div>
+      <p class="section-desc">Technical education must go hand in hand with values that make engineers responsible citizens and compassionate human beings.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card" data-aos="fade-up" data-delay="0">
+        <div class="why-icon">🌱</div>
+        <h4>Holistic Development</h4>
+        <p>Beyond technical skills, UHV helps students develop emotional intelligence, ethical reasoning, and a balanced worldview.</p>
+      </div>
+      <div class="why-card" data-aos="fade-up" data-delay="100">
+        <div class="why-icon">🤝</div>
+        <h4>Harmonious Relationships</h4>
+        <p>Building understanding of values like trust, respect, and care for nurturing healthy relationships in family, workplace and society.</p>
+      </div>
+      <div class="why-card" data-aos="fade-up" data-delay="200">
+        <div class="why-icon">⚖️</div>
+        <h4>Ethical Engineering</h4>
+        <p>Cultivating professional ethics so that engineers use their skills for the benefit of humanity and in harmony with nature.</p>
+      </div>
+      <div class="why-card" data-aos="fade-up" data-delay="300">
+        <div class="why-icon">🌍</div>
+        <h4>Social Responsibility</h4>
+        <p>Encouraging students to connect with and contribute to their communities through outreach programs and service activities.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ RECENT ACTIVITIES PREVIEW ═══════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-tag"><i class="fas fa-calendar-check"></i> Recent Work</span>
+      <h2 class="section-title">Recent <span>Activities</span></h2>
+      <div class="divider"></div>
+      <p class="section-desc">A glimpse of our recent events and initiatives across campus and community.</p>
+    </div>
+    <div class="cards-grid">
+      <div class="card" data-aos="fade-up" data-delay="0">
+        <div class="card-img" style="background:linear-gradient(135deg,#27ae60,#2ecc71)">
+          🩸
+          <span class="year-badge">Jun 2025</span>
+        </div>
+        <div class="card-body">
+          <div class="card-date"><i class="fas fa-calendar"></i> 3rd June 2025</div>
+          <h3 class="card-title">Blood Donation Camp</h3>
+          <p class="card-text">Organized in association with NSS, FICCI FLO, and Indian Red Cross Society, promoting compassion, responsibility, and social consciousness among students and staff.</p>
+          <div class="card-tags">
+            <span class="tag">UHV Cell</span>
+            <span class="tag">EOC</span>
+            <span class="tag">NSS</span>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-aos="fade-up" data-delay="100">
+        <div class="card-img" style="background:linear-gradient(135deg,#8e44ad,#9b59b6)">
+          ♿
+          <span class="year-badge">Dec 2025</span>
+        </div>
+        <div class="card-body">
+          <div class="card-date"><i class="fas fa-calendar"></i> 3rd December 2025</div>
+          <h3 class="card-title">International Day of Persons with Disabilities</h3>
+          <p class="card-text">Sensitization program on Disability Inclusion themed "Towards Accessible Campus," fostering awareness, empathy, and institutional inclusiveness.</p>
+          <div class="card-tags">
+            <span class="tag">EOC</span>
+            <span class="tag">UHV Cell</span>
+            <span class="tag">Inclusion</span>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-aos="fade-up" data-delay="200">
+        <div class="card-img" style="background:linear-gradient(135deg,#e74c3c,#c0392b)">
+          ❤️
+          <span class="year-badge">Dec 2025</span>
+        </div>
+        <div class="card-body">
+          <div class="card-date"><i class="fas fa-calendar"></i> 10th December 2025</div>
+          <h3 class="card-title">Human Rights Day — Free Health Check-Up Camp</h3>
+          <p class="card-text">Observing Human Rights Day with a Free Health Check-Up Camp themed "Health, Dignity, and Well-being for All," in collaboration with healthcare partners.</p>
+          <div class="card-tags">
+            <span class="tag">UHV Cell</span>
+            <span class="tag">NSS</span>
+            <span class="tag">EOC</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px">
+      <a href="activities.html" class="btn btn-primary">
+        <i class="fas fa-arrow-right"></i> View All Activities
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="footer-logo-icon">🕊️</div>
+        <div class="footer-logo-text">
+          <div class="ft-title">UHV Cell — HKBKCE</div>
+          <div class="ft-sub">Universal Human Values</div>
+        </div>
+      </div>
+      <p class="footer-desc">The Universal Human Values Cell at HKBK College of Engineering is dedicated to nurturing ethical values, social responsibility, and holistic development among engineering students.</p>
+      <div class="social-links">
+        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul class="footer-links">
+        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About UHV</a></li>
+        <li><a href="activities.html"><i class="fas fa-chevron-right"></i> Activities</a></li>
+        <li><a href="team.html"><i class="fas fa-chevron-right"></i> Our Team</a></li>
+        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Activities</h4>
+      <ul class="footer-links">
+        <li><a href="activities.html"><i class="fas fa-chevron-right"></i> FDP Programs</a></li>
+        <li><a href="activities.html"><i class="fas fa-chevron-right"></i> Induction Programs</a></li>
+        <li><a href="activities.html"><i class="fas fa-chevron-right"></i> Outreach Programs</a></li>
+        <li><a href="activities.html"><i class="fas fa-chevron-right"></i> Expert Lectures</a></li>
+        <li><a href="activities.html"><i class="fas fa-chevron-right"></i> VTU Lectures</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <div class="footer-contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>HKBK College of Engineering, Nagawara, Bangalore – 560045</span>
+      </div>
+      <div class="footer-contact-item">
+        <i class="fas fa-globe"></i>
+        <span>www.hkbkce.ac.in</span>
+      </div>
+      <div class="footer-contact-item">
+        <i class="fas fa-user"></i>
+        <span>Prof. Khallikkunaisa<br/>UHV Coordinator</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 HKBK College of Engineering. All rights reserved.</span>
+    <span>Guided by <a href="#">Dr. Mohammed Riyaz Ahmed</a>, Principal</span>
+  </div>
+</footer>
+
+<button class="back-to-top" title="Back to top"><i class="fas fa-arrow-up"></i></button>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

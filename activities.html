@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Activities | UHV Cell — HKBKCE</title>
+  <meta name="description" content="All activities and events conducted by the Universal Human Values Cell at HKBK College of Engineering."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+  <style>
+    .activity-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 28px;
+    }
+    .activity-card {
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(10,33,88,0.09);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .activity-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 36px rgba(10,33,88,0.16);
+    }
+    .activity-header {
+      padding: 28px 28px 20px;
+      position: relative;
+    }
+    .activity-icon-wrap {
+      width: 60px; height: 60px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .activity-year-tag {
+      position: absolute;
+      top: 20px; right: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+    .activity-card-date {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .activity-card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #0a2158;
+      line-height: 1.3;
+      margin-bottom: 0;
+    }
+    .activity-body {
+      padding: 0 28px 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .activity-desc {
+      font-size: 13.5px;
+      color: #6c757d;
+      line-height: 1.75;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+    .activity-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: #6c757d;
+      background: #f4f6fb;
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid #dee2e6;
+    }
+    .meta-item i { font-size: 10px; }
+
+    /* Color themes per activity type */
+    .theme-blue   .activity-header { background: linear-gradient(135deg, #e8f0fe, #f0f4ff); border-left: 4px solid #1a3b8a; }
+    .theme-orange .activity-header { background: linear-gradient(135deg, #fff3e0, #fef9f0); border-left: 4px solid #e67e22; }
+    .theme-green  .activity-header { background: linear-gradient(135deg, #e8f5e9, #f0faf0); border-left: 4px solid #27ae60; }
+    .theme-purple .activity-header { background: linear-gradient(135deg, #f3e5f5, #faf0ff); border-left: 4px solid #9b59b6; }
+    .theme-red    .activity-header { background: linear-gradient(135deg, #fde8e8, #fff0f0); border-left: 4px solid #e74c3c; }
+    .theme-teal   .activity-header { background: linear-gradient(135deg, #e0f7fa, #f0fdff); border-left: 4px solid #00897b; }
+    .theme-indigo .activity-header { background: linear-gradient(135deg, #e8eaf6, #f0f2ff); border-left: 4px solid #3949ab; }
+    .theme-pink   .activity-header { background: linear-gradient(135deg, #fce4ec, #fff0f5); border-left: 4px solid #e91e63; }
+
+    .theme-blue   .activity-icon-wrap { background: rgba(26,59,138,0.12); }
+    .theme-orange .activity-icon-wrap { background: rgba(230,126,34,0.12); }
+    .theme-green  .activity-icon-wrap { background: rgba(39,174,96,0.12); }
+    .theme-purple .activity-icon-wrap { background: rgba(155,89,182,0.12); }
+    .theme-red    .activity-icon-wrap { background: rgba(231,76,60,0.12); }
+    .theme-teal   .activity-icon-wrap { background: rgba(0,137,123,0.12); }
+    .theme-indigo .activity-icon-wrap { background: rgba(57,73,171,0.12); }
+    .theme-pink   .activity-icon-wrap { background: rgba(233,30,99,0.12); }
+
+    .theme-blue   .activity-year-tag { background: #1a3b8a; color: #fff; }
+    .theme-orange .activity-year-tag { background: #e67e22; color: #fff; }
+    .theme-green  .activity-year-tag { background: #27ae60; color: #fff; }
+    .theme-purple .activity-year-tag { background: #9b59b6; color: #fff; }
+    .theme-red    .activity-year-tag { background: #e74c3c; color: #fff; }
+    .theme-teal   .activity-year-tag { background: #00897b; color: #fff; }
+    .theme-indigo .activity-year-tag { background: #3949ab; color: #fff; }
+    .theme-pink   .activity-year-tag { background: #e91e63; color: #fff; }
+
+    .theme-blue   .activity-card-date { color: #1a3b8a; }
+    .theme-orange .activity-card-date { color: #e67e22; }
+    .theme-green  .activity-card-date { color: #27ae60; }
+    .theme-purple .activity-card-date { color: #9b59b6; }
+    .theme-red    .activity-card-date { color: #e74c3c; }
+    .theme-teal   .activity-card-date { color: #00897b; }
+    .theme-indigo .activity-card-date { color: #3949ab; }
+    .theme-pink   .activity-card-date { color: #e91e63; }
+
+    /* Summary strip */
+    .summary-strip {
+      background: linear-gradient(135deg, #0a2158, #1a3b8a);
+      padding: 40px 24px;
+    }
+    .summary-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .summary-text { color: #fff; }
+    .summary-text h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 4px; }
+    .summary-text p { font-size: 13px; opacity: 0.8; }
+    .summary-stats { display: flex; gap: 32px; }
+    .sum-stat { text-align: center; color: #fff; }
+    .sum-stat strong { display: block; font-size: 2rem; font-weight: 800; color: #f39c12; }
+    .sum-stat span { font-size: 12px; opacity: 0.8; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ NAVBAR ═══════════════════════════ -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <div class="logo-icon">🕊️</div>
+      <div class="brand-text">
+        <div class="brand-title">UHV CELL — HKBKCE</div>
+        <div class="brand-sub">Universal Human Values</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+      <li><a href="activities.html" class="active"><i class="fas fa-calendar-check"></i> Activities</a></li>
+      <li><a href="team.html"><i class="fas fa-users"></i> Team</a></li>
+      <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+    </ul>
+    <button class="nav-toggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════ PAGE HERO ═══════════════════════════ -->
+<div class="page-hero">
+  <h1><i class="fas fa-calendar-check" style="color:#f39c12;margin-right:12px"></i>Our Activities</h1>
+  <p>A journey of events, workshops, outreach programs, and expert lectures — nurturing values across campus and community from 2020 to 2025.</p>
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <i class="fas fa-chevron-right" style="font-size:10px"></i>
+    <span>Activities</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ SUMMARY STRIP ═══════════════════════════ -->
+<div class="summary-strip">
+  <div class="summary-inner">
+    <div class="summary-text">
+      <h3>Implementation Journey 2020–2025</h3>
+      <p>From induction programs to national-level FDPs — a timeline of UHV activities at HKBKCE</p>
+    </div>
+    <div class="summary-stats">
+      <div class="sum-stat"><strong>6</strong><span>Years Active</span></div>
+      <div class="sum-stat"><strong>20+</strong><span>Events</span></div>
+      <div class="sum-stat"><strong>5</strong><span>Outreach</span></div>
+      <div class="sum-stat"><strong>3</strong><span>FDPs</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ FILTER BAR ═══════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All Activities</button>
+      <button class="filter-btn" data-filter="2020">2020</button>
+      <button class="filter-btn" data-filter="2021">2021</button>
+      <button class="filter-btn" data-filter="2022">2022</button>
+      <button class="filter-btn" data-filter="2023">2023</button>
+      <button class="filter-btn" data-filter="2024">2024</button>
+      <button class="filter-btn" data-filter="2025">2025</button>
+    </div>
+
+    <div class="activity-grid">
+
+      <!-- ─── 2020 ─── -->
+      <div class="activity-card theme-indigo" data-year="2020" data-aos="fade-up" data-delay="0">
+        <div class="activity-header">
+          <div class="activity-icon-wrap">🎓</div>
+          <span class="activity-year-tag">2020</span>
+          <div class="activity-card-date"><i class="fas fa-calendar"></i> 2020</div>
+          <h3 class="activity-card-title">UHV Induction Program 2020</h3>
+        </div>
+        <div class="activity-body">
+          <p class="activity-desc">
+            The inaugural UHV Induction Program marking the launch of the Universal Human Values initiative at HKBK College of Engineering. Students were introduced to the core concepts of Universal Human Values, self-understanding, and harmonious living.
+          </p>
+          <div class="activity-meta">
+            <span class="meta-item"><i class="fas fa-map-marker-alt"></i> HKBKCE Campus</span>
+            <span class="meta-item"><i class="fas fa-users"></i> All Departments</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── 2021 ─── -->
+      <div class="activity-card theme-blue" data-year="2021" data-aos="fade-up" data-delay="50">
+        <div class="activity-header">
+          <div class="activity-icon-wrap">📚</div>
+          <span class="activity-year-tag">Dec 2021</span>
+          <div class="activity-card-date"><i class="fas fa-calendar"></i> 4th December 2021</div>
+          <h3 class="activity-card-title">UHV Session — 3rd & 5th Sem ISE</h3>
+        </div>
+        <div class="activity-body">
+          <p class="activity-desc">
+            Universal Human Values session conducted for 3rd and 5th semester students of Information Science and Engineering (ISE). The session was led by <strong>Dr. Komala</strong>, covering the fundamentals of UHV and their application in engineering education.
+          </p>
+          <div class="activity-meta">
+            <span class="meta-item"><i class="fas fa-user"></i> Dr. Komala</span>
+            <span class="meta-item"><i class="fas fa-building"></i> ISE Dept.</span>
+            <span class="meta-item"><i class="fas fa-calendar-day"></i> 4 Dec 2021</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card theme-orange" data-year="2021" data-aos="fade-up" data-delay="100">
+        <div class="activity-header">
+          <div class="activity-icon-wrap">💡</div>
+          <span class="activity-year-tag">Dec 2021</span>
+          <div class="activity-card-date"><i class="fas fa-calendar"></i> 7th December 2021</div>
+          <h3 class="activity-card-title">UHV Session — 5th Sem CSE</h3>
+        </div>
+        <div class="activity-body">
+          <p class="activity-desc">
+            Universal Human Values session for 5th semester Computer Science and Engineering students, conducted by <strong>Prof. Khallikkunaisa</strong>. The session emphasized the importance of values in the engineering profession and in personal life.
+          </p>
+          <div class="activity-meta">
+            <span class="meta-item"><i class="fas fa-user"></i> Prof. Khallikkunaisa</span>
+            <span class="meta-item"><i class="fas fa-building"></i> CSE Dept.</span>
+            <span class="meta-item"><i class="fas fa-calendar-day"></i> 7 Dec 2021</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card theme-teal" data-year="2021" data-aos="fade-up" data-delay="150">
+        <div class="activity-header">
+          <div class="activity-icon-wrap">🔌</div>
+          <span class="activity-year-tag">Dec 2021</span>
+          <div class="activity-card-date"><i class="fas fa-calendar"></i> 10th December 2021</div>
+          <h3 class="activity-card-title">UHV Session — 5th Sem ECE</h3>
+        </div>
+        <div class="activity-body">
+          <p class="activity-desc">
+            A Universal Human Values session for 5th semester Electronics and Communication Engineering students, conducted by <strong>Prof. Yogananda, Prof. Anees Fatima</strong>, and <strong>Prof. Akshata</strong>. The session focused on values in professional and personal contexts.
+          </p>
+          <div class="activity-meta">
+            <span class="meta-item"><i class="fas fa-user"></i> Prof. Yogananda & Team</span>
+            <span class="meta-item"><i class="fas fa-building"></i> ECE Dept.</span>
+            <span class="meta-item"><i class="fas fa-calendar-day"></i> 10 Dec 2021</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── 2022 ─── -->
+      <div class="activity-card theme-purple" data-year="2022" data-aos="fade-up" data-delay="0">
+        <div class="activity-header">
+          <div class="activity-icon-wrap">🏛️</div>
+          <span class="activity-year-tag">2022</span>
+          <div class="activity-card-date"><i class="fas fa-calendar"></i> 2022</div>
+          <h3 class="activity-card-title">UHV Activities — 2022</h3>
+        </div>
+        <div class="activity-body">
+          <p class="activity-desc">
+            Continuation of Universal Human Values activities across all departments of HKBK College of Engineering. Department-wise UHV sessions were conducted to cover more students and deepen their understanding of the values framework.
+          </p>
+          <div class="activity-meta">
+            <span class="meta-item"><i class="fas fa-users"></i> All Departments</span>
+            <span class="meta-item"><i class="fas fa-university"></i> HKBKCE</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card theme-orange" data-year="2022" data-aos="fade-up" data-delay="80">
+        <div class="activity-header">
+          <div class="activity-icon-wrap">🎓</div>
+          <span class="activity-year-tag">2022</span>
+          <div class="activity-card-date"><i class="fas fa-calendar"></i> 2022</div>
+          <h3 class="activity-card-title">National Level FDP on Universal Human Values</h3>
+        </div>
+        <div class="activity-body">
+          <p class="activity-desc">
+            HKBK College of Engineering organized a <strong>National Level Faculty Development Program (FDP)</strong> on Universal Human Values in 2022. The program provided faculty members from institutions across India with in-depth training on UHV pedagogy, enabling them to effectively teach the UHV curriculum to students.
+          </p>
+          <div class="activity-meta">
+            <span class="meta-item"><i class="fas fa-globe"></i> National Level</span>
+            <span class="meta-item"><i class="fas fa-chalkboard-teacher"></i> FDP</span>
+            <span class="meta-item"><i class="fas fa-certificate"></i> AICTE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── 2023–2024 ─── -->
+      <div class="activity-card theme-green" data-year="2023" data-aos="fade-up" data-delay="0">
+        <div class="activity-header">
+          <div class="activity-icon-wrap">🌟</div>
+          <span class="activity-year-tag">Mar 2024</span>
+          <div class="activity-card-date"><i class="fas fa-calendar"></i> 12th March 2024</div>
+          <h3 class="activity-card-title">Induction Program — 27th Batch (2023–24)</h3>
+        </div>
+        <div class="activity-body">
+          <p class="activity-desc">
+            Expert talk on "Universal Human Values" conducted under the induction program for the 27th batch of students (2023–2024), covering all engineering departments. Resource person: <strong>Prof. Khallikkunaisa</strong>, Dept. of CSE, HKBKCE. The session emphasized the purpose of education, the need for values, and harmony in relationships. Coordinators: Prof. Lijimol, Prof. Husna Minal Khandare, Prof. Juliet Jhony.
+          </p>
+          <div class="activity-meta">
+            <span class="meta-item"><i class="fas fa-user"></i> Prof. Khallikkunaisa</span>
+            <span class="meta-item"><i class="fas fa-users"></i> All Depts</span>
+            <span class="meta-item"><i class="fas fa-clock"></i> 10:45 AM–12:45 PM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card theme-blue" data-year="2024" data-aos="fade-up" data-delay="80">
+        <div class="activity-header">
+          <div class="activity-icon-wrap">🏫</div>
+          <span class="activity-year-tag">2024</span>
+          <div class="activity-card-date"><i class="fas fa-calendar"></i> 2024</div>
+          <h3 class="activity-card-title">Three-Day Face-to-Face UHV FDP (AICTE) 2024</h3>
+        </div>
+        <div class="activity-body">
+          <p class="activity-desc">
+            A three-day intensive Face-to-Face Faculty Development Program on Universal Human Values, organized under the AICTE initiative. The program trained faculty members in the UHV framework, equipping them to deliver effective UHV sessions to students and integrate values into engineering education. Certificates were awarded to all participants.
+          </p>
+          <div class="activity-meta">
+            <span class="meta-item"><i class="fas fa-calendar-alt"></i> 3 Days</span>
+            <span class="meta-item"><i class="fas fa-chalkboard-teacher"></i> FDP</span>
+            <span class="meta-item"><i class="fas fa-certificate"></i> AICTE Certified</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card theme-teal" data-year="2024" data-aos="fade-up" data-delay="120">
+        <div class="activity-header">
+          <div class="activity-icon-wrap">💻</div>
+          <span class="activity-year-tag">Sep–Oct 2024</span>
+          <div class="activity-card-date"><i class="fas fa-calendar"></i> 30 Sep & 4 Oct 2024</div>
+          <h3 class="activity-card-title">UHV Session — CSE Department (Sep–Oct 2024)</h3>
+        </div>
+        <div class="activity-body">
+          <p class="activity-desc">
+            Universal Human Values sessions for CSE students conducted in offline mode by <strong>Prof. Khallikkunaisa</strong> and <strong>Dr. Sharada</strong>. The sessions covered familiarization of the department, introduction to UHV concepts, and interactive discussions. Student feedback was collected via Google Forms. Coordinators: Prof. P. Srilakshmi, Prof. Syeda Sadiya Tabassum, Prof. Kavitha, Prof. Keerthi.
+          </p>
+          <div class="activity-meta">
+            <span class="meta-item"><i class="fas fa-user"></i> Prof. Khallikkunaisa &amp; Dr. Sharada</span>
+            <span class="meta-item"><i class="fas fa-building"></i> CSE</span>
+            <span class="meta-item"><i class="fas fa-clock"></i> Offline</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card theme-indigo" data-year="2024" data-aos="fade-up" data-delay="160">
+        <div class="activity-header">
+          <div class="activity-icon-wrap">📋</div>
+          <span class="activity-year-tag">2024–25</span>
+          <div class="activity-card-date"><i class="fas fa-calendar"></i> Academic Year 2024–25</div>
+          <h3 class="activity-card-title">UHV Cell Member Formation 2024–25</h3>
+        </div>
+        <div class="activity-body">
+          <p class="activity-desc">
+            Formation and announcement of the UHV Cell members for the academic year 2024–25. Faculty representatives from all departments were designated as UHV coordinators, strengthening the institutional framework for Universal Human Values education at HKBK College of Engineering.
+          </p>
+          <div class="activity-meta">
+            <span class="meta-item"><i class="fas fa-users"></i> All Departments</span>
+            <span class="meta-item"><i class="fas fa-university"></i> HKBKCE</span>
+            <span class="meta-item"><i class="fas fa-calendar-alt"></i> 2024–25</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── 2025 ─── -->
+      <div class="activity-card theme-green" data-year="2025" data-aos="fade-up" data-delay="0">
+        <div class="activity-header">
+          <div class="activity-icon-wrap">🩸</div>
+          <span class="activity-year-tag">Jun 2025</span>
+          <div class="activity-card-date"><i class="fas fa-calendar"></i> 3rd June 2025</div>
+          <h3 class="activity-card-title">Blood Donation Camp</h3>
+        </div>
+        <div class="activity-body">
+          <p class="activity-desc">
+            A significant humanitarian initiative organized by the UHV Cell and Equal Opportunity Cell (EOC) in association with the National Service Scheme (NSS), FICCI FLO, and the Indian Red Cross Society. The camp promoted voluntary blood donation among students and staff, encouraging values of <strong>compassion, responsibility, and social consciousness</strong>. Venue: ONESB Seminar Hall.
+          </p>
+          <div class="activity-meta">
+            <span class="meta-item"><i class="fas fa-map-marker-alt"></i> ONESB Seminar Hall</span>
+            <span class="meta-item"><i class="fas fa-hand-holding-heart"></i> Humanitarian</span>
+            <span class="meta-item"><i class="fas fa-users"></i> NSS + EOC</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card theme-purple" data-year="2025" data-aos="fade-up" data-delay="60">
+        <div class="activity-header">
+          <div class="activity-icon-wrap">♿</div>
+          <span class="activity-year-tag">Dec 2025</span>
+          <div class="activity-card-date"><i class="fas fa-calendar"></i> 3rd December 2025</div>
+          <h3 class="activity-card-title">International Day of Persons with Disabilities</h3>
+        </div>
+        <div class="activity-body">
+          <p class="activity-desc">
+            The EOC and UHV Cell commemorated <strong>International Day of Persons with Disabilities</strong> with a sensitization program titled <em>"Towards Accessible Campus: Sensitization Program on Disability Inclusion."</em> The program focused on creating a campus that is technologically adaptive, socially sensitive, and barrier-free. Active participation from students, faculty, and distinguished dignitaries. Duration: 10:00 AM – 1:00 PM.
+          </p>
+          <div class="activity-meta">
+            <span class="meta-item"><i class="fas fa-clock"></i> 10 AM – 1 PM</span>
+            <span class="meta-item"><i class="fas fa-wheelchair"></i> Disability Inclusion</span>
+            <span class="meta-item"><i class="fas fa-users"></i> EOC + UHV</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card theme-red" data-year="2025" data-aos="fade-up" data-delay="100">
+        <div class="activity-header">
+          <div class="activity-icon-wrap">🏥</div>
+          <span class="activity-year-tag">Dec 2025</span>
+          <div class="activity-card-date"><i class="fas fa-calendar"></i> 10th December 2025</div>
+          <h3 class="activity-card-title">Human Rights Day — Free Health Check-Up Camp</h3>
+        </div>
+        <div class="activity-body">
+          <p class="activity-desc">
+            HKBK College observed <strong>Human Rights Day</strong> (marking the adoption of UDHR in 1948) by organizing a Free Health Check-Up Camp themed <em>"Health, Dignity, and Well-being for All."</em> Organized by the UHV Cell, NSS Unit, and EOC in collaboration with Indian Designs Exports Pvt. Ltd., Prince Opticals, Procuredental Clinic and Lab Gen. Venue: BPT Seminar Hall.
+          </p>
+          <div class="activity-meta">
+            <span class="meta-item"><i class="fas fa-map-marker-alt"></i> BPT Seminar Hall</span>
+            <span class="meta-item"><i class="fas fa-heartbeat"></i> Health Camp</span>
+            <span class="meta-item"><i class="fas fa-balance-scale"></i> Human Rights</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card theme-orange" data-year="2025" data-aos="fade-up" data-delay="140">
+        <div class="activity-header">
+          <div class="activity-icon-wrap">🖥️</div>
+          <span class="activity-year-tag">Dec 2025</span>
+          <div class="activity-card-date"><i class="fas fa-calendar"></i> 19th December 2025</div>
+          <h3 class="activity-card-title">VTU–UHV Online Lecture Series (12th Monthly Lecture)</h3>
+        </div>
+        <div class="activity-body">
+          <p class="activity-desc">
+            Successful conduct of the 12th Monthly Online Lecture on Universal Human Values, organized by VTU through HKBKCE. Speaker: <strong>Prof. T. G. Sitharam, Hon'ble Chairman, AICTE, New Delhi</strong>. Presided by: <strong>Prof. S. Vidhyashankar, Hon'ble Vice-Chancellor, VTU, Belagavi</strong>. Live streamed online for 1st semester B.E./B.Tech students across all affiliated institutions. Duration: 10:30 AM – 12:00 Noon.
+          </p>
+          <div class="activity-meta">
+            <span class="meta-item"><i class="fas fa-wifi"></i> Online / Live</span>
+            <span class="meta-item"><i class="fas fa-user-tie"></i> AICTE Chairman</span>
+            <span class="meta-item"><i class="fas fa-clock"></i> 10:30 AM – 12:00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card theme-blue" data-year="2025" data-aos="fade-up" data-delay="170">
+        <div class="activity-header">
+          <div class="activity-icon-wrap">📡</div>
+          <span class="activity-year-tag">2025</span>
+          <div class="activity-card-date"><i class="fas fa-calendar"></i> 2025</div>
+          <h3 class="activity-card-title">UHV Online Sessions from VTU</h3>
+        </div>
+        <div class="activity-body">
+          <p class="activity-desc">
+            Regular online UHV lecture sessions facilitated by Visvesvaraya Technological University (VTU), streamed for all affiliated engineering colleges. HKBK College of Engineering ensured participation of its students in these monthly VTU UHV sessions as part of the UHV curriculum for first-year students.
+          </p>
+          <div class="activity-meta">
+            <span class="meta-item"><i class="fas fa-wifi"></i> Online</span>
+            <span class="meta-item"><i class="fas fa-university"></i> VTU</span>
+            <span class="meta-item"><i class="fas fa-calendar-alt"></i> Monthly</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card theme-teal" data-year="2025" data-aos="fade-up" data-delay="200">
+        <div class="activity-header">
+          <div class="activity-icon-wrap">🙌</div>
+          <span class="activity-year-tag">Dec 2025</span>
+          <div class="activity-card-date"><i class="fas fa-calendar"></i> 20th December 2025</div>
+          <h3 class="activity-card-title">Appreciation Programme for Support Staff</h3>
+        </div>
+        <div class="activity-body">
+          <p class="activity-desc">
+            An Appreciation Program to acknowledge the dedicated services of the <strong>Maintenance Team and Attenders</strong> of HKBK College of Engineering. Organized under Social Connect and Responsibility (SCR) and NSS, this event reflected the college's emphasis on social responsibility, inclusiveness, and recognition of all stakeholders supporting the academic ecosystem. Venue: ISE Seminar Hall.
+          </p>
+          <div class="activity-meta">
+            <span class="meta-item"><i class="fas fa-map-marker-alt"></i> ISE Seminar Hall</span>
+            <span class="meta-item"><i class="fas fa-star"></i> Appreciation</span>
+            <span class="meta-item"><i class="fas fa-hands-helping"></i> SCR + NSS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card theme-pink" data-year="2025" data-aos="fade-up" data-delay="230">
+        <div class="activity-header">
+          <div class="activity-icon-wrap">💛</div>
+          <span class="activity-year-tag">Dec 2025</span>
+          <div class="activity-card-date"><i class="fas fa-calendar"></i> 22nd December 2025</div>
+          <h3 class="activity-card-title">Outreach Program — Connecting with Specially Abled Children</h3>
+        </div>
+        <div class="activity-body">
+          <p class="activity-desc">
+            An outreach visit to <strong>Samarthanam Disability Centre, HSR Layout, Bengaluru</strong>, organized by the CSE Department, UHV Cell, Differently Abled Cell, and Equal Opportunity Cell. Students and faculty witnessed the lives and unique talents of specially abled children (speech and hearing impaired). Aimed at fostering <strong>empathy, gratitude, inclusivity, and social responsibility</strong>. Full title: "Connecting, Uplifting, &amp; Celebrating the Abilities of Specially Abled Children."
+          </p>
+          <div class="activity-meta">
+            <span class="meta-item"><i class="fas fa-map-marker-alt"></i> Samarthanam Centre</span>
+            <span class="meta-item"><i class="fas fa-heart"></i> Outreach</span>
+            <span class="meta-item"><i class="fas fa-hands-holding-child"></i> Inclusive</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card theme-indigo" data-year="2025" data-aos="fade-up" data-delay="260">
+        <div class="activity-header">
+          <div class="activity-icon-wrap">🏢</div>
+          <span class="activity-year-tag">Jan 2025</span>
+          <div class="activity-card-date"><i class="fas fa-calendar"></i> 27th January 2025</div>
+          <h3 class="activity-card-title">UHV Potential Nodal Centre Meet</h3>
+        </div>
+        <div class="activity-body">
+          <p class="activity-desc">
+            Participation in the <strong>AICTE UHV Potential Nodal Centre Meet</strong>, an online meeting held from 3:00 PM to 5:30 PM. HKBK College of Engineering, as a recognized Potential Nodal Center, participated in this meet to share experiences, discuss best practices, and plan future UHV activities at the national level.
+          </p>
+          <div class="activity-meta">
+            <span class="meta-item"><i class="fas fa-wifi"></i> Online</span>
+            <span class="meta-item"><i class="fas fa-award"></i> Nodal Centre</span>
+            <span class="meta-item"><i class="fas fa-clock"></i> 3:00–5:30 PM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-card theme-orange" data-year="2025" data-aos="fade-up" data-delay="290">
+        <div class="activity-header">
+          <div class="activity-icon-wrap">📜</div>
+          <span class="activity-year-tag">2025</span>
+          <div class="activity-card-date"><i class="fas fa-calendar"></i> 2024–25</div>
+          <h3 class="activity-card-title">AICTE UHV FDP Certificates</h3>
+        </div>
+        <div class="activity-body">
+          <p class="activity-desc">
+            Faculty members who participated in AICTE-approved UHV Faculty Development Programs received their official certificates. These certifications recognize the faculty's commitment to values-based education and their readiness to deliver UHV curriculum effectively to engineering students.
+          </p>
+          <div class="activity-meta">
+            <span class="meta-item"><i class="fas fa-certificate"></i> AICTE Certified</span>
+            <span class="meta-item"><i class="fas fa-chalkboard-teacher"></i> Faculty FDP</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end activity-grid -->
+  </div>
+</section>
+
+<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="footer-logo-icon">🕊️</div>
+        <div class="footer-logo-text">
+          <div class="ft-title">UHV Cell — HKBKCE</div>
+          <div class="ft-sub">Universal Human Values</div>
+        </div>
+      </div>
+      <p class="footer-desc">Fostering ethical values, social responsibility, and holistic development among engineering students at HKBK College of Engineering, Bangalore.</p>
+      <div class="social-links">
+        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul class="footer-links">
+        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About UHV</a></li>
+        <li><a href="activities.html"><i class="fas fa-chevron-right"></i> Activities</a></li>
+        <li><a href="team.html"><i class="fas fa-chevron-right"></i> Our Team</a></li>
+        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Activity Types</h4>
+      <ul class="footer-links">
+        <li><a href="#"><i class="fas fa-chevron-right"></i> Faculty FDPs</a></li>
+        <li><a href="#"><i class="fas fa-chevron-right"></i> Induction Programs</a></li>
+        <li><a href="#"><i class="fas fa-chevron-right"></i> Expert Lectures</a></li>
+        <li><a href="#"><i class="fas fa-chevron-right"></i> Outreach Programs</a></li>
+        <li><a href="#"><i class="fas fa-chevron-right"></i> VTU Lectures</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <div class="footer-contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>HKBK College of Engineering, Nagawara, Bangalore – 560045</span>
+      </div>
+      <div class="footer-contact-item">
+        <i class="fas fa-user"></i>
+        <span>Prof. Khallikkunaisa<br/>UHV Coordinator</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 HKBK College of Engineering. All rights reserved.</span>
+    <span>Guided by <a href="#">Dr. Mohammed Riyaz Ahmed</a>, Principal</span>
+  </div>
+</footer>
+
+<button class="back-to-top"><i class="fas fa-arrow-up"></i></button>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

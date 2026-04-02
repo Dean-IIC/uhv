@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Team | UHV Cell — HKBKCE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+  <style>
+    .leadership-card {
+      background: linear-gradient(135deg, #0a2158, #1a3b8a);
+      border-radius: 20px;
+      padding: 48px;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      color: #fff;
+      margin-bottom: 56px;
+      position: relative;
+      overflow: hidden;
+      flex-wrap: wrap;
+    }
+    .leadership-card::before {
+      content: '';
+      position: absolute;
+      top: -50px; right: -50px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+    .leadership-avatar {
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #e67e22, #f39c12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 48px;
+      flex-shrink: 0;
+      border: 4px solid rgba(255,255,255,0.2);
+    }
+    .leadership-info { flex: 1; position: relative; z-index: 1; }
+    .leadership-info .badge {
+      display: inline-block;
+      background: rgba(230,126,34,0.25);
+      border: 1px solid rgba(230,126,34,0.4);
+      color: #f39c12;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .leadership-info h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 4px; }
+    .leadership-info .designation { font-size: 14px; opacity: 0.85; margin-bottom: 14px; }
+    .leadership-info p { font-size: 14px; opacity: 0.82; line-height: 1.8; max-width: 600px; }
+
+    .coordinator-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 36px 32px;
+      box-shadow: 0 4px 22px rgba(10,33,88,0.1);
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 40px;
+      border-left: 5px solid #e67e22;
+      flex-wrap: wrap;
+    }
+    .coord-avatar {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #e67e22, #f39c12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px;
+      flex-shrink: 0;
+    }
+    .coord-info .badge-role {
+      font-size: 11px;
+      font-weight: 700;
+      color: #e67e22;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 6px;
+    }
+    .coord-info h3 { font-size: 1.2rem; font-weight: 800; color: #0a2158; margin-bottom: 4px; }
+    .coord-info .dept { font-size: 13px; color: #6c757d; margin-bottom: 12px; }
+    .coord-info p { font-size: 14px; color: #6c757d; line-height: 1.8; }
+
+    .member-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 22px;
+    }
+    .member-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 20px;
+      text-align: center;
+      box-shadow: 0 3px 16px rgba(10,33,88,0.08);
+      transition: all 0.3s;
+      border-top: 3px solid #1a3b8a;
+    }
+    .member-card:hover { transform: translateY(-5px); box-shadow: 0 8px 28px rgba(10,33,88,0.13); }
+    .member-avatar {
+      width: 68px; height: 68px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0a2158, #1a3b8a);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+      margin: 0 auto 14px;
+      color: #fff;
+    }
+    .member-name { font-size: 14px; font-weight: 700; color: #0a2158; margin-bottom: 4px; }
+    .member-dept {
+      font-size: 11px;
+      font-weight: 600;
+      color: #fff;
+      background: #1a3b8a;
+      padding: 3px 10px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .member-role { font-size: 12px; color: #6c757d; }
+
+    .join-card {
+      background: linear-gradient(135deg, #f4f6fb, #e8f0fe);
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      border: 2px dashed #c3cfe2;
+      margin-top: 28px;
+    }
+    .join-card h3 { font-size: 1.2rem; font-weight: 700; color: #0a2158; margin: 16px 0 8px; }
+    .join-card p { font-size: 14px; color: #6c757d; margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <div class="logo-icon">🕊️</div>
+      <div class="brand-text">
+        <div class="brand-title">UHV CELL — HKBKCE</div>
+        <div class="brand-sub">Universal Human Values</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+      <li><a href="activities.html"><i class="fas fa-calendar-check"></i> Activities</a></li>
+      <li><a href="team.html" class="active"><i class="fas fa-users"></i> Team</a></li>
+      <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+    </ul>
+    <button class="nav-toggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1><i class="fas fa-users" style="color:#f39c12;margin-right:12px"></i>Our Team</h1>
+  <p>The dedicated faculty members and coordinators who drive the Universal Human Values Cell at HKBK College of Engineering.</p>
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <i class="fas fa-chevron-right" style="font-size:10px"></i>
+    <span>Team</span>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+
+    <!-- Principal -->
+    <div class="section-header" data-aos="fade-up" style="margin-bottom:36px">
+      <span class="section-tag"><i class="fas fa-crown"></i> Leadership</span>
+      <h2 class="section-title">Guided by <span>Excellence</span></h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="leadership-card" data-aos="fade-up">
+      <div class="leadership-avatar">👨‍💼</div>
+      <div class="leadership-info">
+        <div class="badge">Principal & Patron</div>
+        <h2>Dr. Mohammed Riyaz Ahmed</h2>
+        <div class="designation">Principal, HKBK College of Engineering, Bangalore</div>
+        <p>Under the visionary guidance of Dr. Mohammed Riyaz Ahmed, the UHV Cell was established in 2021 and grew to achieve recognition as an AICTE Potential Nodal Center. His leadership has been instrumental in institutionalizing Universal Human Values education at HKBK College of Engineering.</p>
+      </div>
+    </div>
+
+    <!-- UHV Coordinator -->
+    <div class="section-header" data-aos="fade-up" style="margin-bottom:28px;margin-top:16px">
+      <span class="section-tag"><i class="fas fa-user-tie"></i> Cell Coordinator</span>
+      <h2 class="section-title">UHV <span>Coordinator</span></h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="coordinator-card" data-aos="fade-up">
+      <div class="coord-avatar">👩‍🏫</div>
+      <div class="coord-info">
+        <div class="badge-role">UHV Cell Coordinator</div>
+        <h3>Prof. Khallikkunaisa</h3>
+        <div class="dept">Department of Computer Science & Engineering, HKBK College of Engineering</div>
+        <p>
+          Prof. Khallikkunaisa serves as the dedicated UHV Cell Coordinator at HKBK College of Engineering.
+          She has been instrumental in planning and conducting all UHV activities — from induction programs and expert talks to national-level FDPs. She has represented the institution in the AICTE UHV Potential Nodal Centre Meets and VTU UHV lecture programs. Her commitment to values-based education has been the driving force behind the UHV Cell's success.
+        </p>
+      </div>
+    </div>
+
+    <!-- Faculty Members -->
+    <div class="section-header" data-aos="fade-up" style="margin-bottom:28px;margin-top:48px">
+      <span class="section-tag"><i class="fas fa-chalkboard-teacher"></i> Faculty</span>
+      <h2 class="section-title">UHV <span>Faculty Members</span></h2>
+      <div class="divider"></div>
+      <p class="section-desc">Our diverse team of faculty members from all departments who contribute to the UHV mission.</p>
+    </div>
+
+    <div class="member-grid">
+      <div class="member-card" data-aos="fade-up" data-delay="0">
+        <div class="member-avatar">👩‍🏫</div>
+        <div class="member-name">Dr. Komala</div>
+        <div class="member-dept">ISE</div>
+        <div class="member-role">UHV Faculty — ISE Dept.<br/>Conducted UHV sessions for 3rd & 5th Sem (2021)</div>
+      </div>
+      <div class="member-card" data-aos="fade-up" data-delay="50">
+        <div class="member-avatar">👩‍🏫</div>
+        <div class="member-name">Prof. Yogananda</div>
+        <div class="member-dept">ECE</div>
+        <div class="member-role">UHV Faculty — ECE Dept.<br/>Conducted UHV sessions for 5th Sem ECE (2021)</div>
+      </div>
+      <div class="member-card" data-aos="fade-up" data-delay="100">
+        <div class="member-avatar">👩‍🏫</div>
+        <div class="member-name">Prof. Anees Fatima</div>
+        <div class="member-dept">ECE</div>
+        <div class="member-role">UHV Faculty — ECE Dept.<br/>Co-facilitated UHV session (Dec 2021)</div>
+      </div>
+      <div class="member-card" data-aos="fade-up" data-delay="150">
+        <div class="member-avatar">👩‍🏫</div>
+        <div class="member-name">Prof. Akshata</div>
+        <div class="member-dept">ECE</div>
+        <div class="member-role">UHV Faculty — ECE Dept.<br/>Co-facilitated UHV session (Dec 2021)</div>
+      </div>
+      <div class="member-card" data-aos="fade-up" data-delay="200">
+        <div class="member-avatar">👩‍🏫</div>
+        <div class="member-name">Prof. Lijimol</div>
+        <div class="member-dept">CSE</div>
+        <div class="member-role">Coordinator, Induction Program 2024<br/>UHV Cell Member</div>
+      </div>
+      <div class="member-card" data-aos="fade-up" data-delay="250">
+        <div class="member-avatar">👩‍🏫</div>
+        <div class="member-name">Prof. Husna Minal Khandare</div>
+        <div class="member-dept">CSE</div>
+        <div class="member-role">Coordinator, Induction Program 2024<br/>UHV Cell Member</div>
+      </div>
+      <div class="member-card" data-aos="fade-up" data-delay="300">
+        <div class="member-avatar">👩‍🏫</div>
+        <div class="member-name">Prof. Juliet Jhony</div>
+        <div class="member-dept">CSE</div>
+        <div class="member-role">Coordinator, Induction Program 2024<br/>UHV Cell Member</div>
+      </div>
+      <div class="member-card" data-aos="fade-up" data-delay="350">
+        <div class="member-avatar">👩‍🏫</div>
+        <div class="member-name">Dr. Sharada</div>
+        <div class="member-dept">CSE</div>
+        <div class="member-role">UHV Faculty — CSE Dept.<br/>Conducted UHV sessions (Sep–Oct 2024)</div>
+      </div>
+      <div class="member-card" data-aos="fade-up" data-delay="400">
+        <div class="member-avatar">👩‍🏫</div>
+        <div class="member-name">Prof. P. Srilakshmi</div>
+        <div class="member-dept">CSE</div>
+        <div class="member-role">Coordinator, UHV Sessions 2024<br/>UHV Cell Member</div>
+      </div>
+      <div class="member-card" data-aos="fade-up" data-delay="450">
+        <div class="member-avatar">👩‍🏫</div>
+        <div class="member-name">Prof. Syeda Sadiya Tabassum</div>
+        <div class="member-dept">CSE</div>
+        <div class="member-role">Coordinator, UHV Sessions 2024<br/>UHV Cell Member</div>
+      </div>
+      <div class="member-card" data-aos="fade-up" data-delay="500">
+        <div class="member-avatar">👩‍🏫</div>
+        <div class="member-name">Prof. Kavitha</div>
+        <div class="member-dept">CSE</div>
+        <div class="member-role">Coordinator, UHV Sessions 2024<br/>UHV Cell Member</div>
+      </div>
+      <div class="member-card" data-aos="fade-up" data-delay="550">
+        <div class="member-avatar">👩‍🏫</div>
+        <div class="member-name">Prof. Keerthi</div>
+        <div class="member-dept">CSE</div>
+        <div class="member-role">Coordinator, UHV Sessions 2024<br/>UHV Cell Member</div>
+      </div>
+    </div>
+
+    <!-- Join the team -->
+    <div class="join-card" data-aos="fade-up" data-delay="100">
+      <div style="font-size:48px">🤝</div>
+      <h3>Be Part of the UHV Cell</h3>
+      <p>Faculty members interested in joining the UHV Cell or participating in upcoming FDPs and activities are welcome to contact the UHV Coordinator.</p>
+      <a href="contact.html" class="btn btn-primary"><i class="fas fa-envelope"></i> Get in Touch</a>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="footer-logo-icon">🕊️</div>
+        <div class="footer-logo-text">
+          <div class="ft-title">UHV Cell — HKBKCE</div>
+          <div class="ft-sub">Universal Human Values</div>
+        </div>
+      </div>
+      <p class="footer-desc">Dedicated faculty driving values-based education at HKBK College of Engineering, Bangalore.</p>
+      <div class="social-links">
+        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul class="footer-links">
+        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About UHV</a></li>
+        <li><a href="activities.html"><i class="fas fa-chevron-right"></i> Activities</a></li>
+        <li><a href="team.html"><i class="fas fa-chevron-right"></i> Our Team</a></li>
+        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Departments</h4>
+      <ul class="footer-links">
+        <li><a href="#"><i class="fas fa-chevron-right"></i> Computer Science</a></li>
+        <li><a href="#"><i class="fas fa-chevron-right"></i> Information Science</a></li>
+        <li><a href="#"><i class="fas fa-chevron-right"></i> Electronics &amp; Comm.</a></li>
+        <li><a href="#"><i class="fas fa-chevron-right"></i> All Departments</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <div class="footer-contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>HKBK College of Engineering, Nagawara, Bangalore – 560045</span>
+      </div>
+      <div class="footer-contact-item">
+        <i class="fas fa-user"></i>
+        <span>Prof. Khallikkunaisa — UHV Coordinator</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 HKBK College of Engineering. All rights reserved.</span>
+    <span>Guided by <a href="#">Dr. Mohammed Riyaz Ahmed</a>, Principal</span>
+  </div>
+</footer>
+
+<button class="back-to-top"><i class="fas fa-arrow-up"></i></button>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

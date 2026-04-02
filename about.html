@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About UHV | HKBK College of Engineering</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+  <style>
+    .about-section-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    @media(max-width:800px){ .about-section-grid { grid-template-columns:1fr; } }
+
+    .info-block {
+      background: #fff;
+      border-radius: 14px;
+      padding: 32px;
+      box-shadow: 0 4px 20px rgba(10,33,88,0.08);
+      margin-bottom: 24px;
+      border-left: 4px solid var(--accent);
+    }
+    .info-block h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .info-block h3 i { color: var(--accent); }
+    .info-block p { font-size: 14px; color: var(--text-muted); line-height: 1.8; }
+
+    .vision-mission-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-bottom: 0;
+    }
+    .vm-card {
+      border-radius: 14px;
+      padding: 36px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .vm-card.vision { background: linear-gradient(135deg, #0a2158, #1a3b8a); color: #fff; }
+    .vm-card.mission { background: linear-gradient(135deg, #e67e22, #f39c12); color: #fff; }
+    .vm-card::before {
+      content: '';
+      position: absolute;
+      top: -30px; right: -30px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+    }
+    .vm-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.75;
+      margin-bottom: 8px;
+    }
+    .vm-icon { font-size: 42px; margin-bottom: 16px; }
+    .vm-card h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 14px; }
+    .vm-card p { font-size: 14px; opacity: 0.9; line-height: 1.8; }
+
+    .objectives-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+    }
+    .obj-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 24px;
+      box-shadow: 0 4px 18px rgba(10,33,88,0.07);
+      transition: all 0.3s;
+      text-align: center;
+      border-top: 3px solid var(--accent);
+    }
+    .obj-card:nth-child(2) { border-top-color: #27ae60; }
+    .obj-card:nth-child(3) { border-top-color: #9b59b6; }
+    .obj-card:nth-child(4) { border-top-color: #2980b9; }
+    .obj-card:nth-child(5) { border-top-color: #e74c3c; }
+    .obj-card:nth-child(6) { border-top-color: #00897b; }
+    .obj-card:hover { transform: translateY(-5px); box-shadow: 0 8px 28px rgba(10,33,88,0.12); }
+    .obj-icon { font-size: 38px; margin-bottom: 14px; }
+    .obj-card h4 { font-size: 0.95rem; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+    .obj-card p { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
+    .aicte-block {
+      background: linear-gradient(135deg, #0a2158, #1a3b8a);
+      border-radius: 16px;
+      padding: 48px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .aicte-logo-area {
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .aicte-emblem {
+      font-size: 80px;
+      margin-bottom: 12px;
+    }
+    .aicte-label { font-size: 13px; font-weight: 700; opacity: 0.85; }
+    .aicte-text h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 12px; }
+    .aicte-text h3 span { color: #f39c12; }
+    .aicte-text p { font-size: 14px; opacity: 0.87; line-height: 1.8; margin-bottom: 16px; }
+    .aicte-badges { display: flex; flex-wrap: wrap; gap: 10px; }
+    .aicte-badge {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .aicte-badge i { color: #f39c12; }
+
+    .framework-list {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .framework-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: #f4f6fb;
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .framework-list li .f-icon {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0a2158, #1a3b8a);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .framework-list li h5 { font-size: 14px; font-weight: 700; color: #0a2158; margin-bottom: 3px; }
+    .framework-list li p { font-size: 12.5px; color: #6c757d; line-height: 1.6; }
+    @media(max-width:600px){
+      .vision-mission-grid, .framework-list { grid-template-columns: 1fr; }
+      .aicte-block { padding: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <div class="logo-icon">🕊️</div>
+      <div class="brand-text">
+        <div class="brand-title">UHV CELL — HKBKCE</div>
+        <div class="brand-sub">Universal Human Values</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="about.html" class="active"><i class="fas fa-info-circle"></i> About</a></li>
+      <li><a href="activities.html"><i class="fas fa-calendar-check"></i> Activities</a></li>
+      <li><a href="team.html"><i class="fas fa-users"></i> Team</a></li>
+      <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+    </ul>
+    <button class="nav-toggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1><i class="fas fa-info-circle" style="color:#f39c12;margin-right:12px"></i>About UHV</h1>
+  <p>Understanding the Universal Human Values initiative, its philosophy, AICTE mandate, and HKBK College's commitment to holistic education.</p>
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <i class="fas fa-chevron-right" style="font-size:10px"></i>
+    <span>About UHV</span>
+  </div>
+</div>
+
+<!-- What is UHV -->
+<section class="section">
+  <div class="container">
+    <div class="about-section-grid">
+      <div data-aos="fade-right">
+        <div class="section-tag"><i class="fas fa-dove"></i> Introduction</div>
+        <h2 class="section-title" style="text-align:left;margin-bottom:20px">What is <span style="color:#e67e22">Universal Human Values?</span></h2>
+        <p style="font-size:15px;color:#6c757d;line-height:1.85;margin-bottom:18px">
+          Universal Human Values (UHV) is an educational initiative that aims to develop a comprehensive understanding of what it means to be a complete human being. It goes beyond technical skills to cultivate ethical awareness, emotional intelligence, and a sense of responsibility toward oneself, family, society, and nature.
+        </p>
+        <p style="font-size:15px;color:#6c757d;line-height:1.85;margin-bottom:24px">
+          The UHV framework, developed as part of the AICTE mandate for engineering institutions, is built on the foundation of <strong>Right Understanding</strong> — understanding oneself deeply, and then extending that understanding to relationships and the larger world.
+        </p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <span class="chip"><i class="fas fa-heart" style="color:#e67e22"></i> Values</span>
+          <span class="chip"><i class="fas fa-seedling" style="color:#27ae60"></i> Harmony</span>
+          <span class="chip"><i class="fas fa-brain" style="color:#9b59b6"></i> Self-awareness</span>
+          <span class="chip"><i class="fas fa-hands-helping" style="color:#2980b9"></i> Society</span>
+          <span class="chip"><i class="fas fa-leaf" style="color:#27ae60"></i> Nature</span>
+        </div>
+      </div>
+      <div data-aos="fade-left">
+        <div class="info-block">
+          <h3><i class="fas fa-quote-left"></i> The Purpose of Education</h3>
+          <p>"The overall purpose of education is to enable a human being to live a fulfilling life, in harmony with family, society as well as nature."</p>
+        </div>
+        <div class="info-block" style="border-left-color:#27ae60">
+          <h3><i class="fas fa-circle-nodes" style="color:#27ae60"></i> The UHV Framework</h3>
+          <p>UHV is structured around understanding at four levels: Self (Individual), Family, Society (including Profession), and Nature/Existence — each level building upon the previous to create a holistic worldview.</p>
+        </div>
+        <div class="info-block" style="border-left-color:#9b59b6">
+          <h3><i class="fas fa-graduation-cap" style="color:#9b59b6"></i> For Engineering Students</h3>
+          <p>For engineering students, UHV helps develop professional ethics, social responsibility, and the wisdom to apply technical knowledge for the benefit of humanity while maintaining harmony with the environment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Vision & Mission -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-tag"><i class="fas fa-bullseye"></i> Direction</span>
+      <h2 class="section-title">Vision & <span>Mission</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="vision-mission-grid" data-aos="fade-up" data-delay="100">
+      <div class="vm-card vision">
+        <div class="vm-label">Vision</div>
+        <div class="vm-icon">🌟</div>
+        <h3>Our Vision</h3>
+        <p>To nurture future engineers who are not only technically competent but also ethically grounded, socially responsible, and capable of contributing to a harmonious, equitable, and sustainable society.</p>
+      </div>
+      <div class="vm-card mission">
+        <div class="vm-label">Mission</div>
+        <div class="vm-icon">🎯</div>
+        <h3>Our Mission</h3>
+        <p>To systematically introduce Universal Human Values into engineering education through workshops, FDPs, expert talks, and outreach programs — creating graduates who understand themselves and their role in society and nature.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Objectives -->
+<section class="section">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-tag"><i class="fas fa-list-check"></i> Goals</span>
+      <h2 class="section-title">Our <span>Objectives</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="objectives-grid">
+      <div class="obj-card" data-aos="fade-up" data-delay="0">
+        <div class="obj-icon">🧘</div>
+        <h4>Self-Understanding</h4>
+        <p>Help students understand themselves as integrated beings — with feelings, thoughts, desires, and a deeper natural self-acceptance.</p>
+      </div>
+      <div class="obj-card" data-aos="fade-up" data-delay="60">
+        <div class="obj-icon">👨‍👩‍👧‍👦</div>
+        <h4>Harmonious Relationships</h4>
+        <p>Develop understanding of values like trust, respect, and love for building fulfilling relationships in family and community.</p>
+      </div>
+      <div class="obj-card" data-aos="fade-up" data-delay="120">
+        <div class="obj-icon">⚖️</div>
+        <h4>Professional Ethics</h4>
+        <p>Cultivate ethical awareness in engineering practice — using technology responsibly and for the benefit of all stakeholders.</p>
+      </div>
+      <div class="obj-card" data-aos="fade-up" data-delay="180">
+        <div class="obj-icon">🌍</div>
+        <h4>Social Responsibility</h4>
+        <p>Inspire students to contribute positively to society through service, outreach, and a genuine concern for human well-being.</p>
+      </div>
+      <div class="obj-card" data-aos="fade-up" data-delay="240">
+        <div class="obj-icon">🌱</div>
+        <h4>Harmony with Nature</h4>
+        <p>Build awareness of our interconnectedness with the natural world and responsibility to live sustainably and in ecological harmony.</p>
+      </div>
+      <div class="obj-card" data-aos="fade-up" data-delay="300">
+        <div class="obj-icon">🎓</div>
+        <h4>Faculty Capacity Building</h4>
+        <p>Train faculty through AICTE-certified FDPs to effectively teach UHV and model values-based living for students.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AICTE Recognition -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-tag"><i class="fas fa-award"></i> Recognition</span>
+      <h2 class="section-title">AICTE <span>Recognition</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div data-aos="fade-up" data-delay="100">
+      <div class="aicte-block">
+        <div class="aicte-logo-area">
+          <div class="aicte-emblem">🏛️</div>
+          <div class="aicte-label">AICTE<br/>India</div>
+        </div>
+        <div class="aicte-text">
+          <h3>AICTE <span>Potential Nodal Center</span> for Universal Human Values</h3>
+          <p>
+            HKBK College of Engineering has been officially recognized by the <strong>All India Council for Technical Education (AICTE)</strong> as a <strong>Potential Nodal Center for Universal Human Values</strong>. This prestigious recognition acknowledges our sustained efforts in implementing the UHV curriculum, conducting FDPs for faculty, and organizing various activities to inculcate universal values among engineering students.
+          </p>
+          <p>
+            As a Potential Nodal Center, HKBK College of Engineering plays a key role in the AICTE UHV ecosystem — conducting national-level FDPs, participating in Nodal Centre meetings, and acting as a resource institution for nearby engineering colleges.
+          </p>
+          <div class="aicte-badges">
+            <span class="aicte-badge"><i class="fas fa-check-circle"></i> Established 2021</span>
+            <span class="aicte-badge"><i class="fas fa-star"></i> Potential Nodal Center</span>
+            <span class="aicte-badge"><i class="fas fa-globe"></i> National Level FDPs</span>
+            <span class="aicte-badge"><i class="fas fa-certificate"></i> AICTE Certified</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UHV Framework -->
+<section class="section">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-tag"><i class="fas fa-sitemap"></i> Structure</span>
+      <h2 class="section-title">The UHV <span>Framework</span></h2>
+      <div class="divider"></div>
+      <p class="section-desc">Universal Human Values education is structured across four interconnected levels of existence.</p>
+    </div>
+    <ul class="framework-list" data-aos="fade-up" data-delay="100">
+      <li>
+        <div class="f-icon">🧘</div>
+        <div>
+          <h5>Level 1: Individual (Self)</h5>
+          <p>Understanding oneself as a combination of the physical body and the 'I' (consciousness). Recognizing needs, emotions, and natural acceptance within oneself.</p>
+        </div>
+      </li>
+      <li>
+        <div class="f-icon">👨‍👩‍👦</div>
+        <div>
+          <h5>Level 2: Family</h5>
+          <p>Understanding values in relationships — trust, respect, affection, care, guidance — and how to nurture fulfilling bonds with family members.</p>
+        </div>
+      </li>
+      <li>
+        <div class="f-icon">🏘️</div>
+        <div>
+          <h5>Level 3: Society</h5>
+          <p>Understanding the societal order, justice, equality, and one's professional responsibilities toward colleagues, the institution, and society at large.</p>
+        </div>
+      </li>
+      <li>
+        <div class="f-icon">🌿</div>
+        <div>
+          <h5>Level 4: Nature / Existence</h5>
+          <p>Understanding co-existence with nature — the interconnectedness of all living and non-living systems, and our responsibility to maintain ecological balance.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="footer-logo-icon">🕊️</div>
+        <div class="footer-logo-text">
+          <div class="ft-title">UHV Cell — HKBKCE</div>
+          <div class="ft-sub">Universal Human Values</div>
+        </div>
+      </div>
+      <p class="footer-desc">The Universal Human Values Cell at HKBK College of Engineering, recognized as an AICTE Potential Nodal Center, is dedicated to holistic engineering education.</p>
+      <div class="social-links">
+        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul class="footer-links">
+        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About UHV</a></li>
+        <li><a href="activities.html"><i class="fas fa-chevron-right"></i> Activities</a></li>
+        <li><a href="team.html"><i class="fas fa-chevron-right"></i> Our Team</a></li>
+        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul class="footer-links">
+        <li><a href="#"><i class="fas fa-chevron-right"></i> AICTE UHV Portal</a></li>
+        <li><a href="#"><i class="fas fa-chevron-right"></i> VTU UHV Cell</a></li>
+        <li><a href="#"><i class="fas fa-chevron-right"></i> UHV Textbooks</a></li>
+        <li><a href="#"><i class="fas fa-chevron-right"></i> FDP Certificates</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <div class="footer-contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>HKBK College of Engineering, Nagawara, Bangalore – 560045</span>
+      </div>
+      <div class="footer-contact-item">
+        <i class="fas fa-user"></i>
+        <span>Prof. Khallikkunaisa<br/>UHV Coordinator</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 HKBK College of Engineering. All rights reserved.</span>
+    <span>Guided by <a href="#">Dr. Mohammed Riyaz Ahmed</a>, Principal</span>
+  </div>
+</footer>
+
+<button class="back-to-top"><i class="fas fa-arrow-up"></i></button>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
