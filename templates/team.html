@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <link rel="stylesheet" href="assets/css/style.css"/>
+  <link rel="stylesheet" href="assets/css/cms.css"/>
   <style>
     .leadership-card {
       background: linear-gradient(135deg, #0a2158, #1a3b8a);
@@ -144,27 +145,27 @@
 <nav class="navbar">
   <div class="nav-inner">
     <a href="index.html" class="nav-brand">
-      <div class="logo-icon">🕊️</div>
+      <div data-e="t:nav.1" class="logo-icon">🕊️</div>
       <div class="brand-text">
-        <div class="brand-title">UHV CELL — HKBKCE</div>
-        <div class="brand-sub">Universal Human Values</div>
+        <div data-e="t:nav.2" class="brand-title">UHV CELL — HKBKCE</div>
+        <div data-e="t:nav.3" class="brand-sub">Universal Human Values</div>
       </div>
     </a>
     <ul class="nav-links">
-      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-      <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
-      <li><a href="activities.html"><i class="fas fa-calendar-check"></i> Activities</a></li>
-      <li><a href="team.html" class="active"><i class="fas fa-users"></i> Team</a></li>
-      <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+      <li data-e="t:nav.4"><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li data-e="t:nav.5"><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+      <li data-e="t:nav.6"><a href="activities.html"><i class="fas fa-calendar-check"></i> Activities</a></li>
+      <li data-e="t:nav.7"><a href="team.html" class="active"><i class="fas fa-users"></i> Team</a></li>
+      <li data-e="t:nav.8"><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
     </ul>
     <button class="nav-toggle"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
 <div class="page-hero">
-  <h1><i class="fas fa-users" style="color:#f39c12;margin-right:12px"></i>Our Team</h1>
-  <p>The dedicated faculty members and coordinators who drive the Universal Human Values Cell at HKBK College of Engineering.</p>
-  <div class="breadcrumb">
+  <h1 data-e="t:team.1"><i class="fas fa-users" style="color:#f39c12;margin-right:12px"></i>Our Team</h1>
+  <p data-e="t:team.2">The dedicated faculty members and coordinators who drive the Universal Human Values Cell at HKBK College of Engineering.</p>
+  <div data-e="t:team.3" class="breadcrumb">
     <a href="index.html">Home</a>
     <i class="fas fa-chevron-right" style="font-size:10px"></i>
     <span>Team</span>
@@ -176,12 +177,12 @@
 
     <!-- Principal -->
     <div class="section-header" data-aos="fade-up" style="margin-bottom:36px">
-      <span class="section-tag"><i class="fas fa-crown"></i> Leadership</span>
-      <h2 class="section-title">Guided by <span>Excellence</span></h2>
+      <span data-e="t:team.4" class="section-tag"><i class="fas fa-crown"></i> Leadership</span>
+      <h2 data-e="t:team.5" class="section-title">Guided by <span>Excellence</span></h2>
       <div class="divider"></div>
     </div>
 
-    <div class="leadership-card" data-aos="fade-up">
+    <div data-list="list:team.leaders" data-tpl="leader"><div class="leadership-card" data-aos="fade-up">
       <div class="leadership-avatar">👨‍💼</div>
       <div class="leadership-info">
         <div class="badge">Principal & Patron</div>
@@ -189,16 +190,16 @@
         <div class="designation">Principal, HKBK College of Engineering, Bangalore</div>
         <p>Under the visionary guidance of Dr. Mohammed Riyaz Ahmed, the UHV Cell was established in 2021 and grew to achieve recognition as an AICTE Potential Nodal Center. His leadership has been instrumental in institutionalizing Universal Human Values education at HKBK College of Engineering.</p>
       </div>
-    </div>
+    </div></div>
 
     <!-- UHV Coordinator -->
     <div class="section-header" data-aos="fade-up" style="margin-bottom:28px;margin-top:16px">
-      <span class="section-tag"><i class="fas fa-user-tie"></i> Cell Coordinator</span>
-      <h2 class="section-title">UHV <span>Coordinator</span></h2>
+      <span data-e="t:team.6" class="section-tag"><i class="fas fa-user-tie"></i> Cell Coordinator</span>
+      <h2 data-e="t:team.7" class="section-title">UHV <span>Coordinator</span></h2>
       <div class="divider"></div>
     </div>
 
-    <div class="coordinator-card" data-aos="fade-up">
+    <div data-list="list:team.coordinators" data-tpl="coordinator"><div class="coordinator-card" data-aos="fade-up">
       <div class="coord-avatar">👩‍🏫</div>
       <div class="coord-info">
         <div class="badge-role">UHV Cell Coordinator</div>
@@ -209,17 +210,17 @@
           She has been instrumental in planning and conducting all UHV activities — from induction programs and expert talks to national-level FDPs. She has represented the institution in the AICTE UHV Potential Nodal Centre Meets and VTU UHV lecture programs. Her commitment to values-based education has been the driving force behind the UHV Cell's success.
         </p>
       </div>
-    </div>
+    </div></div>
 
     <!-- Faculty Members -->
     <div class="section-header" data-aos="fade-up" style="margin-bottom:28px;margin-top:48px">
-      <span class="section-tag"><i class="fas fa-chalkboard-teacher"></i> Faculty</span>
-      <h2 class="section-title">UHV <span>Faculty Members</span></h2>
+      <span data-e="t:team.8" class="section-tag"><i class="fas fa-chalkboard-teacher"></i> Faculty</span>
+      <h2 data-e="t:team.9" class="section-title">UHV <span>Faculty Members</span></h2>
       <div class="divider"></div>
-      <p class="section-desc">Our diverse team of faculty members from all departments who contribute to the UHV mission.</p>
+      <p data-e="t:team.10" class="section-desc">Our diverse team of faculty members from all departments who contribute to the UHV mission.</p>
     </div>
 
-    <div class="member-grid">
+    <div data-list="list:team.members" data-tpl="member" class="member-grid">
       <div class="member-card" data-aos="fade-up" data-delay="0">
         <div class="member-avatar">👩‍🏫</div>
         <div class="member-name">Dr. Komala</div>
@@ -296,10 +297,10 @@
 
     <!-- Join the team -->
     <div class="join-card" data-aos="fade-up" data-delay="100">
-      <div style="font-size:48px">🤝</div>
-      <h3>Be Part of the UHV Cell</h3>
-      <p>Faculty members interested in joining the UHV Cell or participating in upcoming FDPs and activities are welcome to contact the UHV Coordinator.</p>
-      <a href="contact.html" class="btn btn-primary"><i class="fas fa-envelope"></i> Get in Touch</a>
+      <div data-e="t:team.11" style="font-size:48px">🤝</div>
+      <h3 data-e="t:team.12">Be Part of the UHV Cell</h3>
+      <p data-e="t:team.13">Faculty members interested in joining the UHV Cell or participating in upcoming FDPs and activities are welcome to contact the UHV Coordinator.</p>
+      <a data-e="t:team.14" href="contact.html" class="btn btn-primary"><i class="fas fa-envelope"></i> Get in Touch</a>
     </div>
 
   </div>
@@ -309,13 +310,13 @@
   <div class="footer-grid">
     <div class="footer-brand">
       <div class="footer-logo">
-        <div class="footer-logo-icon">🕊️</div>
+        <div data-e="t:team.15" class="footer-logo-icon">🕊️</div>
         <div class="footer-logo-text">
-          <div class="ft-title">UHV Cell — HKBKCE</div>
-          <div class="ft-sub">Universal Human Values</div>
+          <div data-e="t:team.16" class="ft-title">UHV Cell — HKBKCE</div>
+          <div data-e="t:team.17" class="ft-sub">Universal Human Values</div>
         </div>
       </div>
-      <p class="footer-desc">Dedicated faculty driving values-based education at HKBK College of Engineering, Bangalore.</p>
+      <p data-e="t:team.18" class="footer-desc">Dedicated faculty driving values-based education at HKBK College of Engineering, Bangalore.</p>
       <div class="social-links">
         <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
         <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
@@ -324,39 +325,40 @@
       </div>
     </div>
     <div class="footer-col">
-      <h4>Quick Links</h4>
+      <h4 data-e="t:team.19">Quick Links</h4>
       <ul class="footer-links">
-        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
-        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About UHV</a></li>
-        <li><a href="activities.html"><i class="fas fa-chevron-right"></i> Activities</a></li>
-        <li><a href="team.html"><i class="fas fa-chevron-right"></i> Our Team</a></li>
-        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+        <li data-e="t:team.20"><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+        <li data-e="t:team.21"><a href="about.html"><i class="fas fa-chevron-right"></i> About UHV</a></li>
+        <li data-e="t:team.22"><a href="activities.html"><i class="fas fa-chevron-right"></i> Activities</a></li>
+        <li data-e="t:team.23"><a href="team.html"><i class="fas fa-chevron-right"></i> Our Team</a></li>
+        <li data-e="t:team.24"><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Departments</h4>
+      <h4 data-e="t:team.25">Departments</h4>
       <ul class="footer-links">
-        <li><a href="#"><i class="fas fa-chevron-right"></i> Computer Science</a></li>
-        <li><a href="#"><i class="fas fa-chevron-right"></i> Information Science</a></li>
-        <li><a href="#"><i class="fas fa-chevron-right"></i> Electronics &amp; Comm.</a></li>
-        <li><a href="#"><i class="fas fa-chevron-right"></i> All Departments</a></li>
+        <li data-e="t:team.26"><a href="#"><i class="fas fa-chevron-right"></i> Computer Science</a></li>
+        <li data-e="t:team.27"><a href="#"><i class="fas fa-chevron-right"></i> Information Science</a></li>
+        <li data-e="t:team.28"><a href="#"><i class="fas fa-chevron-right"></i> Electronics &amp; Comm.</a></li>
+        <li data-e="t:team.29"><a href="#"><i class="fas fa-chevron-right"></i> All Departments</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Contact</h4>
-      <div class="footer-contact-item">
+      <h4 data-e="t:team.30">Contact</h4>
+      <div data-e="t:team.31" class="footer-contact-item">
         <i class="fas fa-map-marker-alt"></i>
         <span>HKBK College of Engineering, Nagawara, Bangalore – 560045</span>
       </div>
-      <div class="footer-contact-item">
+      <div data-e="t:team.32" class="footer-contact-item">
         <i class="fas fa-user"></i>
         <span>Prof. Khallikkunaisa — UHV Coordinator</span>
       </div>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2025 HKBK College of Engineering. All rights reserved.</span>
-    <span>Guided by <a href="#">Dr. Mohammed Riyaz Ahmed</a>, Principal</span>
+    <span data-e="t:team.33">© 2025 HKBK College of Engineering. All rights reserved.</span>
+    <span data-e="t:team.34">Guided by <a href="#">Dr. Mohammed Riyaz Ahmed</a>, Principal</span>
+    <a href="/admin/login" class="uhv-admin-link" rel="nofollow">Admin</a>
   </div>
 </footer>
 

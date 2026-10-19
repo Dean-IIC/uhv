@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <title>Admin sign in | UHV Cell — HKBKCE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 16px; font-family: Poppins, system-ui, sans-serif; background: linear-gradient(135deg, #0a2158, #1a3b8a); color: #111827; }
+    .box { width: min(380px, 100%); background: #fff; border-radius: 16px; padding: 32px 28px; box-shadow: 0 20px 60px rgba(0,0,0,.35); }
+    .logo { font-size: 36px; text-align: center; }
+    h1 { font-size: 20px; text-align: center; margin: 8px 0 4px; color: #0a2158; }
+    p.sub { text-align: center; margin: 0 0 20px; color: #6b7280; font-size: 13px; }
+    label { display: block; font-size: 13px; font-weight: 600; margin: 12px 0 4px; }
+    input { width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font: inherit; }
+    input:focus { outline: 2px solid #e67e22; border-color: transparent; }
+    button { width: 100%; margin-top: 20px; padding: 11px; border: 0; border-radius: 8px; background: #e67e22; color: #fff; font: 600 15px Poppins, system-ui, sans-serif; cursor: pointer; }
+    button:disabled { opacity: .6; cursor: wait; }
+    .err { color: #c0392b; font-size: 13px; margin-top: 12px; min-height: 1.2em; text-align: center; }
+    .back { display: block; text-align: center; margin-top: 16px; font-size: 13px; color: #1a3b8a; }
+  </style>
+</head>
+<body>
+  <form class="box" id="f" novalidate>
+    <div class="logo">🕊️</div>
+    <h1>UHV Cell admin</h1>
+    <p class="sub">Sign in to edit the website</p>
+    <label for="u">Username</label>
+    <input id="u" name="username" autocomplete="username" required autofocus/>
+    <label for="p">Password</label>
+    <input id="p" name="password" type="password" autocomplete="current-password" required/>
+    <button id="b" type="submit">Sign in</button>
+    <div class="err" id="e" role="alert"></div>
+    <a class="back" href="/">← Back to the website</a>
+  </form>
+  <script>
+    const f = document.getElementById("f"), b = document.getElementById("b"), e = document.getElementById("e");
+    fetch("/api/session").then((r) => r.json()).then((s) => {
+      if (s.admin) location.replace("/");
+      else if (!s.configured) e.textContent = "Admin sign-in is not set up yet.";
+    }).catch(() => {});
+    f.addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      e.textContent = "";
+      b.disabled = true;
+      try {
+        const r = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "X-UHV-Admin": "1" },
+          body: JSON.stringify({ username: f.username.value, password: f.password.value }),
+        });
+        const d = await r.json().catch(() => ({}));
+        if (r.ok) return location.replace("/");
+        e.textContent = d.error || "Sign-in failed.";
+      } catch {
+        e.textContent = "Could not reach the server. Check your connection.";
+      }
+      b.disabled = false;
+    });
+  </script>
+</body>
+</html>

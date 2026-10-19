@@ -1,0 +1,17 @@
+/* Photos and galleries added through the admin editor. Nothing here changes a page until a photo is added. */
+.has-photo { position: relative; }
+.has-photo > .uhv-slot-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.card-img.has-photo { font-size: 0; }
+.card-img .year-badge { z-index: 1; }
+.uhv-avatar-img { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; display: block; }
+
+.uhv-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; margin-top: 16px; }
+.uhv-gallery:empty { display: none; }
+.uhv-gallery-item { margin: 0; }
+.uhv-gallery-item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 8px; display: block; }
+.uhv-gallery-item figcaption { font-size: 12px; color: #6c757d; margin-top: 4px; line-height: 1.4; }
+.uhv-gallery-item figcaption:empty { display: none; }
+
+.footer-bottom { position: relative; }
+.uhv-admin-link { position: absolute; right: 0; bottom: 3px; font-size: 10px; opacity: 0.3; color: inherit !important; text-decoration: none; }
+.uhv-admin-link:hover, .uhv-admin-link:focus { opacity: 0.8; }

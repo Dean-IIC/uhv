@@ -1,0 +1,27 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "",
+  "outputDirectory": "public",
+  "regions": ["syd1"],
+  "functions": {
+    "api/page.js": { "includeFiles": "templates/**" }
+  },
+  "rewrites": [
+    { "source": "/", "destination": "/api/page?p=index" },
+    { "source": "/:p(index|about|activities|team|contact)", "destination": "/api/page?p=:p" },
+    { "source": "/:p(index|about|activities|team|contact).html", "destination": "/api/page?p=:p" },
+    { "source": "/admin/login", "destination": "/admin/login.html" },
+    { "source": "/admin", "destination": "/admin/login.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "uhv-portal",
+  "private": true,
+  "type": "module",
+  "description": "UHV Cell portal (uhv.hkbkce.in): static pages filled from Supabase, with an on-page admin editor.",
+  "scripts": {
+    "dev": "node --env-file=.env.local scripts/dev.mjs",
+    "seed": "node --env-file=.env.local scripts/seed.mjs",
+    "admin:hash": "node scripts/hash-admin-password.mjs",
+    "test": "node --env-file=.env.local --test tests/"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.117.2",
+    "bcryptjs": "3.0.3",
+    "linkedom": "0.18.12",
+    "sanitize-html": "2.17.7"
+  },
+  "devDependencies": {
+    "parse5": "7.3.0"
+  }
+}
