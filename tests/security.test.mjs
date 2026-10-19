@@ -48,3 +48,33 @@ test("session values are signed and expire", () => {
   assert.ok(!isValidSessionValue(v.replace(/^./, "x"), "k".repeat(40)));
   assert.ok(!isValidSessionValue(v, "k".repeat(40), Date.now() + 8 * 864e5));
 });
+
+test("obfuscated and nested attacks are removed", () => {
+  const attacks = [
+    `<a href="java\tscript:alert(1)">x</a>`,
+    `<a href="&#106;avascript:alert(1)">x</a>`,
+    `<a href=" JAVASCRIPT:alert(1)">x</a>`,
+    `<a href="data:text/html,<script>alert(1)</script>">x</a>`,
+    `<a href="//evil.example">x</a>`,
+    `<svg onload=alert(1)><circle/></svg>`,
+    `<iframe src="https://evil.example"></iframe>`,
+    `<div onclick="x()"><script>alert(1)</script>ok</div>`,
+    `<IMG SRC=x OnError=alert(1)>`,
+    `<span style="color:red;background:url(javascript:alert(1))" onmouseover="x()">s</span>`,
+    `<math><mi xlink:href="javascript:alert(1)">m</mi></math>`,
+    `<noscript><p title="</noscript><img src=x onerror=alert(1)>"></noscript>`,
+    `<template><script>alert(1)</script></template>`,
+    `<!-- <script>alert(1)</script> -->`,
+  ];
+  for (const a of attacks) {
+    const out = cleanInline(a);
+    assert.ok(!/javascript:|data:|on\w+=|<script|<svg|<iframe|<img|<math|\/\/evil|<!--/i.test(out), `${a} -> ${out}`);
+  }
+  assert.equal(cleanInline(`<div onclick="x()"><script>alert(1)</script>ok</div>`), "ok");
+  assert.equal(cleanInline(`<span style="color:red;background:url(x)">s</span>`), `<span style="color:red">s</span>`);
+});
+
+test("plain text fields strip all markup", async () => {
+  const { cleanPlain } = await import("../lib/sanitize.js");
+  assert.equal(cleanPlain(`<b>Hi</b> <script>alert(1)</script>there`), "Hi there");
+});
