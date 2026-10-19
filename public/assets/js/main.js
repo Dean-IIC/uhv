@@ -60,22 +60,33 @@ function initCounters() {
 
 // ── Activity filter ──
 function initFilter() {
-  const btns = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('[data-year]');
-  btns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      btns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const year = btn.dataset.filter;
-      cards.forEach(card => {
-        const show = year === 'all' || card.dataset.year === year;
-        card.style.display = show ? '' : 'none';
-        if (show) {
-          card.style.animation = 'fadeIn 0.4s ease';
-        }
-      });
-    });
+  const bar = document.querySelector('.filter-bar');
+  if (!bar) return;
+  bar.addEventListener('click', (e) => {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    bar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilter(btn.dataset.filter);
   });
+}
+function applyFilter(year) {
+  const grid = document.querySelector('.activity-grid');
+  let shown = 0;
+  document.querySelectorAll('.activity-grid [data-year]').forEach(card => {
+    const show = year === 'all' || card.dataset.year === year;
+    card.style.display = show ? '' : 'none';
+    if (show) { shown++; card.style.animation = 'fadeIn 0.4s ease'; }
+  });
+  // A year with no activities yet shows "Coming soon"
+  let empty = grid?.querySelector('.uhv-coming-soon');
+  if (grid && !empty) {
+    empty = document.createElement('div');
+    empty.className = 'uhv-coming-soon';
+    empty.innerHTML = '<i class="fas fa-hourglass-half"></i><strong>Coming soon</strong><span>Activities for this year will be added here.</span>';
+    grid.prepend(empty);
+  }
+  empty?.classList.toggle('is-visible', !shown);
 }
 
 // ── Set active nav link ──

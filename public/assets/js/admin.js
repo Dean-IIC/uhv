@@ -473,98 +473,274 @@
     }
   }
 
-  // ── Photo galleries (activities) ──
-  function decorateGallery(listEl) {
-    const key = listEl.getAttribute("data-list");
-    const items = () => data.lists[key] || [];
-    const eventTitle = plain(listEl.closest(".activity-card")?.querySelector(".activity-card-title")?.innerHTML) || "event";
-    const commit = async (next, label) => { const clean = await save(key, next, `${PAGE} – ${short(eventTitle, 40)}: ${label}`); data.lists[key] = clean; return clean; };
+  // ── Activities: year tabs and activity boxes ──
+  const ACT_KEY = "list:activities.cards";
+  const YEARS_KEY = "list:activities.years";
+  const THEME_CYCLE = ["theme-indigo", "theme-blue", "theme-orange", "theme-teal", "theme-purple", "theme-green", "theme-red"];
+  const MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+  const acts = () => data.lists[ACT_KEY] || [];
+  const yearList = () => (data.lists[YEARS_KEY] || []).map((y) => y.year);
+  const currentFilter = () => document.querySelector(".filter-btn.active")?.dataset.filter || "all";
+  const rememberFilter = (y) => { try { sessionStorage.setItem("uhv-filter", y); } catch {} };
+  const reloadSoon = () => setTimeout(() => location.reload(), 300);
+  const commitActs = async (next, label) => {
+    const clean = await save(ACT_KEY, next, `${PAGE} – ${label}`);
+    data.lists[ACT_KEY] = clean;
+    return clean;
+  };
+  // "3rd June 2026" -> "Jun 2026"; otherwise just the year
+  const shortTag = (date, year) => {
+    const m = MONTHS.find((mo) => new RegExp(`\\b${mo}`, "i").test(date));
+    return m ? `${m[0].toUpperCase()}${m.slice(1)} ${year}` : year;
+  };
+  const yearSelect = (selected) =>
+    h("select", { class: "uhv-select", "aria-label": "Year" }, ...yearList().map((y) => h("option", { value: y, selected: y === selected }, y)));
 
-    for (const fig of listEl.querySelectorAll(":scope > figure[data-id]")) decorateFigure(fig);
-    const addTile = h("div", { class: "uhv-ui uhv-add-card", role: "button", tabindex: "0", onclick: addPhotos, onkeydown: (e) => e.key === "Enter" && addPhotos() }, h("span", { style: "font-size:20px" }, "➕"), "Add photos");
-    listEl.append(addTile);
+  function decorateYears(bar) {
+    // Keep the chosen tab after the page reloads (Save, Undo, Add year…)
+    let saved = null;
+    try { saved = sessionStorage.getItem("uhv-filter"); } catch {}
+    const btn = saved && bar.querySelector(`.filter-btn[data-filter="${CSS.escape(saved)}"]`);
+    // main.js sets up the tabs on DOMContentLoaded; select the tab after that.
+    const restore = () => btn?.click();
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", () => setTimeout(restore));
+    else setTimeout(restore);
+    bar.addEventListener("click", (e) => { const b = e.target.closest(".filter-btn"); if (b) { rememberFilter(b.dataset.filter); updateAddLabel(b.dataset.filter); } });
 
-    function decorateFigure(fig) {
-      const id = fig.dataset.id;
-      fig.draggable = true;
-      fig.append(h("button", { class: "uhv-ui uhv-btn danger uhv-photo-del", type: "button", title: "Delete photo", "aria-label": "Delete photo",
-        onclick: (e) => { e.stopPropagation(); confirmBox(fig, "Delete this photo?", async () => {
-          try { await commit(items().filter((i) => i.id !== id), "deleted a photo"); fig.remove(); } catch {}
-        }); } }, "✕"));
-      const cap = fig.querySelector("figcaption");
-      cap.addEventListener("click", (e) => {
-        if (!editing || cap.isContentEditable) return;
-        e.stopPropagation();
-        const original = cap.innerHTML;
-        cap.contentEditable = "true";
-        fig.draggable = false;
-        cap.focus();
-        const onKey = (ev) => { if (ev.key === "Enter") { ev.preventDefault(); cap.blur(); } else if (ev.key === "Escape") { cap.innerHTML = original; cap.blur(); } };
-        cap.addEventListener("keydown", onKey);
-        cap.addEventListener("blur", async () => {
-          cap.removeEventListener("keydown", onKey);
-          cap.contentEditable = "false";
-          fig.draggable = true;
-          const value = cap.innerHTML.trim();
-          if (value === original) return;
+    for (const b of bar.querySelectorAll(".filter-btn[data-filter]")) {
+      const y = b.dataset.filter;
+      if (y === "all" || acts().some((a) => a.year === y)) continue;
+      b.after(h("button", { class: "uhv-ui uhv-btn uhv-year-del", type: "button", title: `Remove the empty ${y} tab`, "aria-label": `Remove ${y}`,
+        onclick: () => confirmBox(bar, `Remove the empty ${y} tab?`, async () => {
           try {
-            const clean = await commit(items().map((i) => (i.id === id ? { ...i, caption: value } : i)), `caption "${short(plain(value) || "(empty)", 40)}"`);
-            cap.innerHTML = clean.find((i) => i.id === id)?.caption ?? "";
-          } catch { cap.innerHTML = original; }
-        }, { once: true });
-      });
-      // drag to reorder
-      fig.addEventListener("dragstart", (e) => { if (!editing) return e.preventDefault(); e.dataTransfer.setData("text/plain", id); e.dataTransfer.effectAllowed = "move"; fig.classList.add("uhv-dragging"); });
-      fig.addEventListener("dragend", () => fig.classList.remove("uhv-dragging"));
-      fig.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        const after = e.offsetX > fig.offsetWidth / 2;
-        fig.classList.toggle("uhv-drop-after", after);
-        fig.classList.toggle("uhv-drop-before", !after);
-      });
-      fig.addEventListener("dragleave", () => fig.classList.remove("uhv-drop-after", "uhv-drop-before"));
-      fig.addEventListener("drop", async (e) => {
-        e.preventDefault();
-        const after = fig.classList.contains("uhv-drop-after");
-        fig.classList.remove("uhv-drop-after", "uhv-drop-before");
-        const movedId = e.dataTransfer.getData("text/plain");
-        const moved = listEl.querySelector(`:scope > figure[data-id="${CSS.escape(movedId)}"]`);
-        if (!moved || moved === fig) return;
-        const before = [...listEl.querySelectorAll(":scope > figure[data-id]")];
-        fig[after ? "after" : "before"](moved);
-        const order = [...listEl.querySelectorAll(":scope > figure[data-id]")].map((f) => f.dataset.id);
-        const byId = Object.fromEntries(items().map((i) => [i.id, i]));
-        try { await commit(order.map((oid) => byId[oid]).filter(Boolean), "photos reordered"); }
-        catch { listEl.prepend(...before); }
-      });
+            data.lists[YEARS_KEY] = await save(YEARS_KEY, (data.lists[YEARS_KEY] || []).filter((x) => x.year !== y), `${PAGE}: removed year ${y}`);
+            rememberFilter("all");
+            reloadSoon();
+          } catch {}
+        }) }, "✕"));
     }
+    bar.append(h("button", { class: "uhv-ui uhv-add-year", type: "button", onclick: addYear }, "➕ Add year"));
+  }
 
-    async function addPhotos() {
-      const files = await pickFiles(true);
-      if (!files.length) return;
-      const bad = files.map(checkFile).filter(Boolean);
-      if (bad.length) status("⚠ Skipped: " + bad.join(" "), "err", 10000);
-      const good = files.filter((f) => !checkFile(f));
-      if (!good.length) return;
-      const added = [];
-      for (const [n, file] of good.entries()) {
-        status(`Uploading photo ${n + 1} of ${good.length}…`, "", 0);
-        try { added.push({ id: newId(), photo: await upload(await resizeOnly(file)), caption: "" }); }
-        catch (err) { status(`⚠ "${file.name}" failed: ${err.message}`, "err", 10000); }
-      }
-      if (!added.length) return;
+  function addYear() {
+    const max = Math.max(...yearList().map(Number), new Date().getFullYear() - 1);
+    const input = h("input", { type: "text", inputmode: "numeric", maxlength: "4", value: String(max + 1), id: "uhv-new-year" });
+    const err = h("div", { class: "uhv-err", role: "alert" });
+    const saveBtn = h("button", { class: "uhv-btn primary", type: "button", onclick: async () => {
+      const y = input.value.trim();
+      if (!/^\d{4}$/.test(y) || +y < 2000 || +y > 2100) { err.textContent = "Please enter a year such as 2027."; return; }
+      if (yearList().includes(y)) { err.textContent = `${y} is already there.`; return; }
+      saveBtn.disabled = true;
       try {
-        await commit([...items(), ...added], `added ${added.length} photo${added.length > 1 ? "s" : ""}`);
-        setTimeout(() => location.reload(), 300);
+        await save(YEARS_KEY, [...(data.lists[YEARS_KEY] || []), { id: `y${y}`, year: y }], `${PAGE}: added year ${y}`);
+        rememberFilter(y);
+        close();
+        reloadSoon();
+      } catch (e) { err.textContent = e.message; saveBtn.disabled = false; }
+    } }, "Add year");
+    const { close } = modal("Add a year tab", h("label", { for: "uhv-new-year" }, "Year"), input,
+      h("p", { style: "font-size:13px;color:#6b7280;margin:8px 0 0" }, "The new tab shows “Coming soon” until you add activities to it."),
+      err, h("div", { class: "uhv-row" }, h("button", { class: "uhv-btn", type: "button", onclick: () => close() }, "Cancel"), saveBtn));
+    input.focus();
+    input.select();
+  }
+
+  let addBox = null;
+  function updateAddLabel(f = currentFilter()) {
+    if (!addBox) return;
+    addBox.querySelector("span:last-child").textContent = f === "all" ? "Add activity" : `Add activity to ${f}`;
+  }
+
+  function decorateActivities(grid) {
+    for (const card of grid.querySelectorAll(":scope > .activity-card[data-id]")) decorateActivity(card);
+    addBox = h("div", { class: "uhv-ui uhv-add-card uhv-add-activity", role: "button", tabindex: "0",
+      onclick: () => openActivityForm(), onkeydown: (e) => e.key === "Enter" && openActivityForm() },
+      h("span", { style: "font-size:30px" }, "➕"), h("span", {}, "Add activity"));
+    grid.append(addBox);
+    updateAddLabel();
+  }
+
+  function decorateActivity(card) {
+    const id = card.dataset.id;
+    const item = () => acts().find((a) => a.id === id);
+    const actions = h("div", { class: "uhv-ui uhv-card-actions" });
+    const showButtons = () => fill(actions,
+      h("button", { class: "uhv-btn", type: "button", onclick: (e) => { e.stopPropagation(); startEdit(); } }, "✏️ Edit"),
+      h("button", { class: "uhv-btn", type: "button", onclick: (e) => { e.stopPropagation(); confirmBox(card, "Delete this activity?", del); } }, "🗑️ Delete"));
+    showButtons();
+    card.append(actions);
+
+    async function del() {
+      try {
+        await commitActs(acts().filter((a) => a.id !== id), `deleted activity "${short(plain(item()?.title), 50)}"`);
+        card.remove();
+        document.querySelector(".filter-btn.active")?.click(); // refresh "Coming soon"
       } catch {}
     }
+
+    function startEdit() {
+      const it = item();
+      if (!it || card.classList.contains("uhv-card-editing")) return;
+      const snapshot = card.cloneNode(true);
+      const draft = JSON.parse(JSON.stringify(it));
+      card.classList.add("uhv-card-editing");
+      const names = { icon: "Icon", tag: "Label", date: "Date", title: "Title", desc: "Description", meta: "Details" };
+      const fields = Object.keys(names).map((f) => card.querySelector(`[data-f="${f}"]`)).filter(Boolean);
+      for (const f of fields) { f.contentEditable = "true"; f.dataset.placeholder = names[f.dataset.f]; }
+      card.querySelector('[data-f="title"]')?.focus();
+      const sel = yearSelect(draft.year);
+      const onKey = (e) => {
+        if (e.target.closest?.("[data-pf]")) return;
+        if (e.key === "Enter" && e.shiftKey) { e.preventDefault(); document.execCommand("insertLineBreak"); }
+        else if (e.key === "Enter") { e.preventDefault(); finish(true); }
+        else if (e.key === "Escape") finish(false);
+      };
+      card.addEventListener("keydown", onKey);
+      fill(actions, sel,
+        h("button", { class: "uhv-btn primary", type: "button", onclick: (e) => { e.stopPropagation(); finish(true); } }, "Save"),
+        h("button", { class: "uhv-btn", type: "button", onclick: (e) => { e.stopPropagation(); finish(false); } }, "Cancel"));
+      const gallery = card.querySelector(".uhv-gallery");
+      renderPhotoEditor(gallery, draft);
+
+      async function finish(keep) {
+        if (!keep) {
+          card.removeEventListener("keydown", onKey);
+          snapshot.querySelector(":scope > .uhv-card-actions")?.remove();
+          card.replaceWith(snapshot);
+          decorateActivity(snapshot);
+          return;
+        }
+        for (const f of fields) draft[f.dataset.f] = f.dataset.f === "icon" || f.dataset.f === "tag" ? f.textContent.trim() : f.innerHTML.trim();
+        draft.year = sel.value;
+        if (!plain(draft.title)) { status("⚠ Please enter a title.", "err", 5000); return; }
+        try {
+          await commitActs(acts().map((a) => (a.id === id ? draft : a)), `edited activity "${short(plain(draft.title), 50)}"`);
+          rememberFilter(currentFilter() === "all" ? "all" : draft.year);
+          reloadSoon();
+        } catch {}
+      }
+    }
+  }
+
+  /** Photos inside a box being edited: add several, replace, delete, caption, drag to reorder. */
+  function renderPhotoEditor(gallery, draft) {
+    draft.photos = draft.photos || [];
+    const render = () => {
+      gallery.replaceChildren();
+      for (const p of draft.photos) {
+        const cap = h("figcaption", { "data-pf": "caption", contenteditable: "true", oninput: () => (p.caption = cap.innerHTML.trim()),
+          onkeydown: (e) => { if (e.key === "Enter") { e.preventDefault(); cap.blur(); } } });
+        cap.innerHTML = p.caption || "";
+        const fig = h("figure", { class: "uhv-gallery-item", "data-pid": p.id, draggable: "true" },
+          h("img", { src: p.photo, alt: "", title: "Click to replace this photo", style: "cursor:pointer",
+            onclick: async (e) => {
+              e.stopPropagation();
+              const url = await chooseCroppedPhoto(4 / 3, 1600);
+              if (url) { p.photo = url; render(); }
+            } }),
+          cap,
+          h("button", { class: "uhv-ui uhv-btn danger uhv-photo-del", type: "button", title: "Delete photo", "aria-label": "Delete photo",
+            onclick: (e) => { e.stopPropagation(); confirmBox(fig, "Delete this photo?", () => { draft.photos = draft.photos.filter((x) => x !== p); render(); }); } }, "✕"));
+        fig.addEventListener("dragstart", (e) => { e.dataTransfer.setData("text/plain", p.id); fig.classList.add("uhv-dragging"); });
+        fig.addEventListener("dragend", () => fig.classList.remove("uhv-dragging"));
+        fig.addEventListener("dragover", (e) => {
+          e.preventDefault();
+          const after = e.offsetX > fig.offsetWidth / 2;
+          fig.classList.toggle("uhv-drop-after", after);
+          fig.classList.toggle("uhv-drop-before", !after);
+        });
+        fig.addEventListener("dragleave", () => fig.classList.remove("uhv-drop-after", "uhv-drop-before"));
+        fig.addEventListener("drop", (e) => {
+          e.preventDefault();
+          const after = fig.classList.contains("uhv-drop-after");
+          const moved = draft.photos.find((x) => x.id === e.dataTransfer.getData("text/plain"));
+          if (!moved || moved === p) return render();
+          draft.photos = draft.photos.filter((x) => x !== moved);
+          draft.photos.splice(draft.photos.indexOf(p) + (after ? 1 : 0), 0, moved);
+          render();
+        });
+        gallery.append(fig);
+      }
+      gallery.append(h("div", { class: "uhv-ui uhv-add-card", role: "button", tabindex: "0", onclick: addPhotos },
+        h("span", { style: "font-size:20px" }, "➕"), "Add photos"));
+    };
+    async function addPhotos() {
+      const added = await uploadMany();
+      if (added.length) { draft.photos.push(...added); render(); }
+    }
+    render();
+  }
+
+  /** Lets the admin pick several photos; resizes, compresses and uploads each one. */
+  async function uploadMany() {
+    const files = await pickFiles(true);
+    if (!files.length) return [];
+    const bad = files.map(checkFile).filter(Boolean);
+    if (bad.length) status("⚠ Skipped: " + bad.join(" "), "err", 10000);
+    const good = files.filter((f) => !checkFile(f));
+    const added = [];
+    for (const [n, file] of good.entries()) {
+      status(`Uploading photo ${n + 1} of ${good.length}…`, "", 0);
+      try { added.push({ id: newId(), photo: await upload(await resizeOnly(file)), caption: "" }); }
+      catch (err) { status(`⚠ "${file.name}" failed: ${err.message}`, "err", 10000); }
+    }
+    if (added.length) status(`${added.length} photo${added.length > 1 ? "s" : ""} ready — remember to save`, "ok", 4000);
+    return added;
+  }
+
+  function openActivityForm() {
+    const f = currentFilter();
+    const year = f !== "all" ? f : yearList().at(-1);
+    const sel = yearSelect(year);
+    sel.id = "uhv-a-year";
+    const title = h("input", { type: "text", id: "uhv-a-title", maxlength: "200" });
+    const date = h("input", { type: "text", id: "uhv-a-date", maxlength: "80", placeholder: "e.g. 3rd June 2026" });
+    const desc = h("textarea", { id: "uhv-a-desc" });
+    const photos = [];
+    const count = h("span", { style: "font-size:13px;color:#6b7280" }, "No photos yet");
+    const err = h("div", { class: "uhv-err", role: "alert" });
+    const saveBtn = h("button", { class: "uhv-btn primary", type: "button", onclick: async () => {
+      if (!title.value.trim()) { err.textContent = "Please enter a title."; return title.focus(); }
+      saveBtn.disabled = true;
+      const y = sel.value;
+      const d = date.value.trim();
+      const item = {
+        id: newId(), year: y, theme: THEME_CYCLE[acts().length % THEME_CYCLE.length], delay: 0, icon: "📌",
+        tag: shortTag(d, y), date: `<i class="fas fa-calendar"></i> ${esc(d || y)}`,
+        title: esc(title.value.trim()), desc: esc(desc.value.trim()).replace(/\n/g, "<br/>"), meta: "", photos,
+      };
+      try {
+        await commitActs([...acts(), item], `added activity "${short(title.value.trim(), 50)}"`);
+        rememberFilter(y);
+        close();
+        reloadSoon();
+      } catch (e) { err.textContent = e.message; saveBtn.disabled = false; }
+    } }, "Add activity");
+    const { close } = modal("Add an activity",
+      h("label", { for: "uhv-a-year" }, "Year"), sel,
+      h("label", { for: "uhv-a-title" }, "Title *"), title,
+      h("label", { for: "uhv-a-date" }, "Date"), date,
+      h("label", { for: "uhv-a-desc" }, "Description"), desc,
+      h("label", {}, "Photos"),
+      h("div", { class: "uhv-person-photo" },
+        h("button", { class: "uhv-btn", type: "button", onclick: async () => {
+          const added = await uploadMany();
+          photos.push(...added);
+          count.textContent = photos.length ? `${photos.length} photo${photos.length > 1 ? "s" : ""} added` : "No photos yet";
+        } }, "📷 Add photos"), count),
+      h("p", { style: "font-size:13px;color:#6b7280;margin:10px 0 0" }, "You can change the icon, label and details on the box afterwards with ✏️ Edit."),
+      err,
+      h("div", { class: "uhv-row" }, h("button", { class: "uhv-btn", type: "button", onclick: () => close() }, "Cancel"), saveBtn));
+    title.focus();
   }
 
   // ── Wire up ──
   for (const listEl of document.querySelectorAll("[data-list]")) {
     if (PERSON_TPLS.includes(listEl.getAttribute("data-tpl"))) decoratePersonList(listEl);
-    else if (listEl.getAttribute("data-tpl") === "gallery") decorateGallery(listEl);
+    else if (listEl.getAttribute("data-tpl") === "activity") decorateActivities(listEl);
   }
+  const yearsBar = document.querySelector("[data-years]");
+  if (yearsBar) decorateYears(yearsBar);
 
   document.addEventListener("click", (e) => {
     if (!editing) return;

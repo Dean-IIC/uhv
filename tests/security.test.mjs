@@ -78,3 +78,14 @@ test("plain text fields strip all markup", async () => {
   const { cleanPlain } = await import("../lib/sanitize.js");
   assert.equal(cleanPlain(`<b>Hi</b> <script>alert(1)</script>there`), "Hi there");
 });
+
+test("activity boxes and years are validated", () => {
+  const ok = cleanValue("list:activities.cards", [{ id: "a1", year: "2026", theme: "theme-x", title: "<script>x</script>T", desc: "<b>d</b>", photos: [{ id: "p1", photo: IMG, caption: "c" }] }]);
+  assert.equal(ok.value[0].title, "T");
+  assert.equal(ok.value[0].theme, "theme-indigo");
+  assert.equal(ok.value[0].tag, "2026");
+  assert.ok(cleanValue("list:activities.cards", [{ id: "a1", year: "20x6" }]).error);
+  assert.ok(cleanValue("list:activities.cards", [{ id: "a1", year: "2026", photos: [{ id: "p", photo: "https://evil.example/a.png" }] }]).error);
+  assert.deepEqual(cleanValue("list:activities.years", [{ year: "2027" }, { year: "2020" }]).value.map((y) => y.year), ["2020", "2027"]);
+  assert.ok(cleanValue("list:activities.years", [{ year: "2026" }, { year: "2026" }]).error);
+});

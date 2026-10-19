@@ -18,14 +18,13 @@ body.uhv-admin .navbar { top: var(--uhv-bar-h); }
 body.uhv-editing [data-e], body.uhv-editing [data-num], body.uhv-editing [data-img], body.uhv-editing [data-list] [data-f] { cursor: text; }
 body.uhv-editing [data-img] { cursor: pointer; }
 body.uhv-editing [data-e]:hover, body.uhv-editing [data-num]:hover, body.uhv-editing [data-img]:hover,
-body.uhv-editing .uhv-card-editing [data-f]:hover, body.uhv-editing .uhv-gallery-item figcaption:hover { outline: 1px dashed rgba(230,126,34,.85); outline-offset: 3px; }
+body.uhv-editing .uhv-card-editing [data-f]:hover, .uhv-card-editing .uhv-gallery-item figcaption:hover { outline: 1px dashed rgba(230,126,34,.85); outline-offset: 3px; }
 body.uhv-editing [contenteditable="true"] { outline: 2px solid var(--uhv-orange) !important; outline-offset: 3px; }
 body.uhv-editing a { cursor: text; }
 
 .uhv-ui { display: none !important; }
 body.uhv-editing .uhv-ui { display: flex !important; }
-body:not(.uhv-editing) .uhv-gallery:not(:has(figure)) { display: none; }
-body.uhv-editing .uhv-gallery { display: grid; }
+.uhv-gallery:not(:has(figure, .uhv-add-card)) { display: none; }
 
 /* Card buttons */
 body.uhv-editing [data-list] > [data-id] { position: relative; }
@@ -49,12 +48,12 @@ body.uhv-editing [data-list] > [data-id] { position: relative; }
 [data-tpl="leader"] > .uhv-add-card, [data-tpl="coordinator"] > .uhv-add-card { min-height: 70px; margin-bottom: 40px; }
 
 /* Galleries */
-body.uhv-editing .uhv-gallery-item { position: relative; cursor: grab; }
+.uhv-card-editing .uhv-gallery-item { position: relative; cursor: grab; }
 body.uhv-editing .uhv-gallery-item.uhv-dragging { opacity: .4; }
 body.uhv-editing .uhv-gallery-item.uhv-drop-before { box-shadow: -4px 0 0 var(--uhv-orange); }
 body.uhv-editing .uhv-gallery-item.uhv-drop-after { box-shadow: 4px 0 0 var(--uhv-orange); }
-body.uhv-editing .uhv-gallery-item figcaption { display: block; min-height: 1.4em; cursor: text; }
-body.uhv-editing .uhv-gallery-item figcaption:empty::before { content: "Add caption…"; opacity: .5; }
+.uhv-card-editing .uhv-gallery-item figcaption { display: block; min-height: 1.4em; cursor: text; }
+.uhv-card-editing .uhv-gallery-item figcaption:empty::before { content: "Add caption…"; opacity: .5; }
 .uhv-photo-del { position: absolute; top: 4px; right: 4px; width: 26px; height: 26px; padding: 0; align-items: center; justify-content: center; border-radius: 50%; }
 .uhv-gallery .uhv-add-card { min-height: 0; aspect-ratio: 4 / 3; border-radius: 8px; font-size: 12px; }
 .uhv-gallery .uhv-confirm { top: 34px; right: 4px; font-size: 12px; }
@@ -81,3 +80,16 @@ body.uhv-editing .uhv-gallery-item figcaption:empty::before { content: "Add capt
 .uhv-history .uhv-when { font-size: 12px; color: #6b7280; }
 .uhv-history .uhv-label { font-weight: 600; overflow-wrap: anywhere; }
 .uhv-history .uhv-diff { font-size: 12px; color: #4b5563; overflow-wrap: anywhere; }
+
+/* Activities */
+.filter-bar { position: relative; }
+.uhv-add-year { align-items: center; padding: 8px 18px; border-radius: 30px; border: 2px dashed #9aa9c9; background: rgba(26,59,138,.04); color: #1a3b8a; font: 600 13px Poppins, system-ui, sans-serif; cursor: pointer; }
+.uhv-add-year:hover { background: rgba(26,59,138,.1); }
+.uhv-year-del { width: 26px; height: 26px; padding: 0; align-self: center; justify-content: center; align-items: center; border-radius: 50%; margin-left: -6px; font-size: 11px; }
+.filter-bar > .uhv-confirm { top: 48px; right: 50%; transform: translateX(50%); }
+.uhv-add-activity { min-height: 260px; border-radius: 14px; }
+.uhv-select { font: 600 12px/1 Poppins, system-ui, sans-serif; border: 1px solid rgba(0,0,0,.15); border-radius: 6px; padding: 5px 6px; background: #fff; color: #0a2158; box-shadow: 0 1px 4px rgba(0,0,0,.15); }
+.uhv-modal select { width: 100%; box-sizing: border-box; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 10px; font: inherit; background: #fff; }
+.activity-card.uhv-card-editing [data-f="meta"]:empty, .activity-card.uhv-card-editing [data-f="desc"]:empty { min-height: 1.6em; }
+.activity-card.uhv-card-editing .uhv-gallery-item img { cursor: pointer; }
+body.uhv-editing .activity-card .activity-year-tag { transform: translateY(30px); }

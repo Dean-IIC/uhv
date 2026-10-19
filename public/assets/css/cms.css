@@ -15,3 +15,9 @@
 .footer-bottom { position: relative; }
 .uhv-admin-link { position: absolute; right: 0; bottom: 3px; font-size: 10px; opacity: 0.3; color: inherit !important; text-decoration: none; }
 .uhv-admin-link:hover, .uhv-admin-link:focus { opacity: 0.8; }
+
+/* Activities: a year tab with no activities yet */
+.uhv-coming-soon { display: none; grid-column: 1 / -1; flex-direction: column; align-items: center; gap: 6px; text-align: center; padding: 48px 24px; border: 2px dashed #c3cfe2; border-radius: 14px; background: linear-gradient(135deg, #f4f6fb, #e8f0fe); color: #6c757d; font-size: 14px; }
+.uhv-coming-soon.is-visible { display: flex; }
+.uhv-coming-soon i { font-size: 28px; color: #e67e22; }
+.uhv-coming-soon strong { font-size: 1.15rem; color: #0a2158; }
