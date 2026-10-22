@@ -350,7 +350,7 @@
   const FIELDS = { leader: ["designation", "name", "department", "bio"], coordinator: ["designation", "name", "department", "bio"], member: ["name", "department", "designation"] };
   const FIELD_NAMES = { name: "Name", designation: "Designation", department: "Department", bio: "About (optional)" };
   const DEFAULT_ICON = { leader: "👨‍💼", coordinator: "👩‍🏫", member: "👩‍🏫" };
-  const listLabel = (listEl) => ({ leader: "Leadership", coordinator: "Coordinator", member: "Faculty" })[listEl.getAttribute("data-tpl")] || "Gallery";
+  const listLabel = (listEl) => listEl.getAttribute("data-label") || ({ leader: "Leadership", coordinator: "Coordinator", member: "Faculty" })[listEl.getAttribute("data-tpl")] || "List";
 
   function setAvatar(slot, item, tpl) {
     if (item.photo) slot.replaceChildren(h("img", { class: "uhv-avatar-img", src: item.photo, alt: plain(item.name) }));

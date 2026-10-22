@@ -41,7 +41,8 @@ test("saved values are placed into the page", () => {
   const out = renderPage("team", content);
   assert.match(out, /data-e="t:team.1">Our <strong>People<\/strong><\/h1>/);
   assert.match(out, /<div class="member-name" data-f="name">Dr. Test<\/div>/);
-  assert.equal((out.match(/class="member-card"/g) ?? []).length, 1);
+  const faculty = out.slice(out.indexOf('data-list="list:team.members"'), out.indexOf('data-list="list:team.staff"'));
+  assert.equal((faculty.match(/class="member-card"/g) ?? []).length, 1);
 });
 
 test("activities: 2026 tab, newest year first, placeholder box", () => {
